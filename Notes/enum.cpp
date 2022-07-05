@@ -10,7 +10,7 @@ using namespace std;
 int main()
 {
 
-enum Meal{breakfast, lunch, dinner};
+enum Meal{breakfast, lunch, dinner};  // here the values will be 0,1,2,3,....,n
         // cout << endl<< breakfast;
         // cout << endl<< lunch ;
         // cout << endl<< dinner;
