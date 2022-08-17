@@ -1004,7 +1004,7 @@ ptr = new Derived();
 
 
 	Here there may be confusion that the pointer of base class and the object is of derived class
-does it throw any eror
+does it throw any error
 
 bcz the pointer of base class is well compatible with the obj of der.class
 
@@ -1045,6 +1045,7 @@ void main()
 {
 basicCar *ptr;
 ptr = new advVar();
+}
 
 //-Even if the pointer points to obj of adv car, it cant use the feature of //advance car
 
@@ -1116,6 +1117,136 @@ ptr->show();
 }
 
 
-Let’s hop to VS CODE
+Let’s hop to VS CODE	oops14.cpp
+
+
+
+// after adding virtual infront of show function in base class, it can now access the drv1 & drv2 show function
+
+
+First, the drv1 and drv2 can’t access their own function through ptr;
+Now, to make them access their own function, we make the base show function as virtual as below
+syntax : virtual void show(){ cout << “base”;}
+Now ,the base show() function becomes virtual and compiler will understand and show the drv1/drv2 show function 
+
+
+Why Virtual Function?
+
+
+Example:
+U m owner of candy shop
+Today is aniv.
+you hv dec to gib candy to kids who are regular
+now whenever kids appear, u will decide which candy to gib to them
+like blue to girl red to boy
+u cant predict how many boys/girls ll appear
+Such example also comes in programming, where we cannot predict which object will come next and at run time compiler will decide
+
+Thats why we use virtual function
+This is called Late Binding.
+
+Compiler defer the decision until the program is running
+And at runtime when it come to know which class is pointed by PTR, then appropriate function would be called.
+This is called Dynamic Binding  / Late Binding
+
+class person {  public:
+virtual void give() { cout << “Bun “;  } };
+
+
+class girl:public person{  public:
+void give() { cout << “Blue Bun “;  } };
+
+class boy:public person{  public:
+ void give() { cout << “Red Bun “;  } };
+
+void main ()
+{
+boy b1;
+girl g1;
+person*ptr = NULL;	// initializing with null
+
+ptr = &b1;
+ptr->give();
+
+ptr = &g1;
+ptr->give();
+}
+
+
+Abstract Class
+
+Abstract class is used when we never want to instantiate an object of BASE class.
+
+When we want to esure that object of base class is never instantiated is never generated , then we use abstract class
+
+ WE WANT TO ESNURE THAT  THE OBJECT OF BASE CLASS is never generated.
+we just have to write virtual infront of the function which is common to allother derived class of this class and write = 0 
+syntax:   virtual void give() = 0;
+
+class Person{
+public:
+virtual void give() =0; // 0 means we dont want to instantiate
+};
+
+class boy: public Person {
+public:
+void give(){ cout << “brown bun”;}};
+
+class girl: public Person{
+public:
+void giv(){cout <<”pink bun”}};
+
+
+
+Pure virtual function
+=> when the put the virtual function to 0, it becomes the pure virtual function, 
+
+WHEN WE MAKE THE VIRTUAL FUNCTION IT DOESNT HAVE BODY
+And if a pure virtual function exists in a class then that class becomes abstract class
+
+e
+
+WHY ABSTRACT CLASS?
+  It exists only to act as parent of derived class
+
+To ensure that ,the base class will do nothing and only act as a parent , we make it abstract class
+To ensure that the object of parent/ base class never exists
+
+
+Let’s see the main function
+void main(){
+boy b1;
+girl g1’
+Person *ptr = NULL;
+
+ptr=&b1;
+ptr->give();
+
+ptr=&g1;
+ptr->give();
+
+ptr=&b1;
+ptr->give();
+}
+
+HOP TO VS CODE  oops15.cpp
+
+
+
+when we call the function ,  it will select the functionality acc to the reference stored inside the pointer variable.
+
+Moreover, giver() function is performing more than one task.
+in class girl, it is selecting the pink bun and in class boy it is selecting the brown bun.
+
+
+  
+So, This ability to perform  more than one task of a same function is polymorphism.
+Anything that exists in more than one form  is polymorphism
+
+
+
+TAKEAWAY:
+When one thing exists in more than one form and when that same functionality behaves diffly acc to input value, so this feature of shopwing more than one form is polymorphism
+
 
 
