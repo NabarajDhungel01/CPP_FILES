@@ -1,6 +1,7 @@
 //Program to return the number of the input position
 
 #include <iostream>
+#include <math.h>
 using namespace std;
 int rev_num(int num,int *c, int *rev);
 int tot_char(int num,int *c);
@@ -35,7 +36,7 @@ int tot_char(int num,int *c)
      num = num/10;
 
     }
-    cout << count ;
+    cout <<endl << "Count is : "<< count ;
     *c = count;
 
 }
@@ -53,8 +54,31 @@ for (int i = 0; i < *c ; i++)
     num = num /10;
 }
 
-cout << "Rev is  : " << *(reverse);
+cout << endl << "Rev is  : " << *(reverse);
+
+}
 
 
 
+int n_number(int number_num,int pos) // this selects out the number of the position marked
+{
+    // 123456789 is supplied // position 5 // return value must be 5
+
+    cout << "Passed Number is  : " << number_num << endl ;
+    cout << "Passed Position is : " << pos << endl ;
+
+    int a;
+    a = 10;
+    long int c;
+    int rem;
+
+                                // c = pow(10, pos) + 0.48 ;  // adding 0.48 because of integer truncation is use int a only if u use long int no nned
+
+    cout << "C is  : " << c  <<  endl;
+
+        rem = number_num % c;
+        
+    cout << "Rem is  : " << rem;
+    return rem;
+    
 }

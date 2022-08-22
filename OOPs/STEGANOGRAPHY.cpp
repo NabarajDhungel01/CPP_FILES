@@ -15,6 +15,8 @@ int n_number(int number_num,int pos); // this selects out the number of the posi
 char switch_alphabet(int number, char *ra, int *n, int *v);
 char alphabets[] = {'A', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
 
+
+
 // char *ptr_alpha;
 // ptr_alpha = (char *)malloc(sizeof(char));
 
@@ -70,25 +72,3 @@ char switch_alphabet(int number, char *ra, int *n, int *v)
     }
 }
 
-int n_number(int number_num,int pos) // this selects out the number of the position marked
-{
-    // 123456789 is supplied // position 5 // return value must be 5
-
-    cout << "Passed Number is  : " << number_num << endl ;
-    cout << "Passed Position is : " << pos << endl ;
-
-    int a;
-    a = 10;
-    int c;
-    int rem;
-
-    c = pow(10, pos) + 0.48 ;  // adding 0.48 because of integer truncation
-
-    cout << "C is  : " << c  <<  endl;
-
-        rem = number_num % c;
-        
-    cout << "Rem is  : " << rem;
-    return rem;
-    
-}
