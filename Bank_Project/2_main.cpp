@@ -188,12 +188,11 @@ p: // goto loop
 
 void bank::new_user()
 {
-p:
     system("cls");
     fstream file;
-    int f_pin;                                                // p-> pin
-    float f_balance;                                          // b->balance
-    string f_name, f_fname, f_pass, f_address, f_phone, f_id; // n->name   f->fathername  pa->passowrd   a-> address   ph->phone no. i->id
+    int f_pin;                                                
+    float f_balance;                                         
+    string f_name, f_fname, f_pass, f_address, f_phone, f_id; 
     cout << "\n\n\t\t Add New User\n";
     cout << "\n 1.User ID          :";
     cin >> id;
@@ -211,36 +210,20 @@ p:
     cin >> phone;
     cout << "\n 8.Current Balance  :";
     cin >> balance;
-    file.open("bank.txt", ios::in);
-    if (!file)
-    {
-                                file.open("bank.txt", ios::app|ios::out);
 
-        file<<" "<<id<<" "<<name<<" "<<fname<<" "<<address<<" "<<pin<<" "<<pass<<" "<<phone<<" "<<balance<<"\n";
-        file.close();
-    }
-    // else
-    // {
-    //         file>>f_id>>f_name>>f_fname>>f_address>>f_pin>>f_pass>>f_phone>>f_balance;
-    //     while (!file.eof())
-    //     {
-    //         if (f_id == id)
-    //         {
-    //             cout << "\n \n User ID Already Exists!";
-    //             getch();
-    //             goto p; // now after this it will not goto p bcz it have gone throgh  p and have skipped it., so we need to move to the beginnin g of the file again // ww are closing the file
-    //         }
-    //         file>>f_id>>f_name>>f_fname>>f_address>>f_pin>>f_pass>>f_phone>>f_balance;
-
-    //     }
-    //     file.close();
-
-    //     file.open("bank.txt", ios::app|ios::out);
-    //     file << " " << f_id << " " << f_name << " " << f_fname << " " << f_address << " " << f_pin << " " << f_pass << " " << f_phone << " " << f_balance << "\n";
-    //     file.close();
-    // }
-    if(!file)
-    cout<< "\n\n New User Account Created Successfully...";
+    file.open("benk.txt",ios::in);
+    if(!file)// if there is no file
+   {
+    file.open("benk.txt",ios::app|ios::out);
+    file<<" "<<id<<" "<<name<<" "<<fname<<" "<<address<<" "<<pin<<" "<<pass<<""<<phone<<" "<<balance<<"\n";
+    //NOT FOR USE WE ARE STORING THE VALUE TO non f chars// file<<" "<<f_id<<" "<<f_name<<" "<<f_fname<<" "<<f_address<<" "<<pin<<" "<<pass<<" "<<phone<<" "<<balance<<"\n";
+    file.close();
+   }
+//    else
+//    {
+//     //fetch data from file.
+//     file>>
+//    }
 }
 
 
