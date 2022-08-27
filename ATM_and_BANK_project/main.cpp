@@ -19,6 +19,7 @@ public:
     void deposit();
     void withdraw();
     void transfer();
+    void payment();
 };
 void bank::menu()
 {
@@ -112,6 +113,7 @@ p: // goto loop
         transfer();
             break;
         case 6:
+            payment();
             break;
         case 7:
             break;
@@ -341,21 +343,21 @@ void bank::withdraw()
     }
 }
 void bank::transfer()
-{   beginning:
+{   
     fstream file,temp_file;
     system("cls");
     string sender_id,receiver_id;
-    int found = 0,sender_found=0,receiver_found =0;
+    int found = 0;
     float transfer_amount;
     cout<<"\n\n\n\t\t\t Payment Transfer Option";
     file.open("bank.txt",ios::in);
     if(!file)
     {
-        cout<<"\n\n\n\t\t File Opening Error !!!"; getch();
+        cout<<"\n\n\n\t\t File Opening Error !!!";
     }
     else
     {
-        cout<< "\n\n Sender User ID   : ";          /// TRY TO UTILIZE THE DEPOSIT AND WITHDRAWL FUNCTIONS
+        cout<< "\n\n Sender User ID   : ";          /// TRY TO UTILIZE THE DEPOSIT AND WITHDRAWL FUNCTIONS MAKES MORE COMPLEX
         cin>>sender_id;
         cout<< "\n\n Receiver User ID : ";
         cin>>receiver_id;
@@ -363,11 +365,11 @@ void bank::transfer()
         cin>>transfer_amount;        /// OPENING THE FILE AS READING MODE  12 lines above//////////////////////////////////////////////////////////
         file>>id>>name>>fname>>address>>pin>>pass>>phone>>balance;  
         while (!file.eof()) // Checking if both sender and receiver exists or not and if the sender has the sufficient balance or not 
-        {   if(sender_id == id && transfer_amount > balance){ cout << "Insufficient Balnce In Sender's Account"; getch(); goto beginning;}
+        { /*if(sender_id == id && transfer_amount > balance){ cout << "Insufficient Balnce In Sender's Account"; getch(); goto beginning;}*/
             if(sender_id == id && transfer_amount >=balance )
-            { found++; sender_found++;}
+             found++; 
             else if(receiver_id == id)
-            { found++; receiver_found++;}
+             found++; 
         file>>id>>name>>fname>>address>>pin>>pass>>phone>>balance;  
         }
         file.close();
@@ -400,11 +402,12 @@ void bank::transfer()
             rename("temp_bank.txt","bank.txt");
              cout << "\n\n\n Transaction Successful!!"; getch();
         }
-        else /*if(found == 0 )*/{cout << "Sender and Receiver ID Invalid!!!";getch();}    
-        // if(found == 1)
-        // {if(sender_found == 0){ cout << "\n\n Sender ID Invalid!!!";getch();}if(receiver_found==0){cout << "\n\n Sender ID Invalid!!!";getch();}}
+        else {
+            cout << "Sender and Receiver ID Invalid!!!";getch();
+            
         
     }
+}
 }
 main()
 {
