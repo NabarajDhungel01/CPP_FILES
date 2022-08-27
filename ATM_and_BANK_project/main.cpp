@@ -32,14 +32,14 @@ p:
     cout << "\n 2. ATM Management";
     cout << "\n 3. Exit";
     cout << "\n\n Enter your choice  : ";
-    cin >> choice;
+    cin >> choice; while (cin.fail()) { cin.clear();   cin.ignore();  }
     switch (choice)
     {
     case 1:
         // system("cls");
         // cout << "\n\n \t\t Login Account";
         // cout << "\n\n E-mail  :";
-        // cin >> email;
+        // email;
         // cout << "\n Pin     :";
         // for (int i = 1; i <= 5; i++)
         // {
@@ -93,7 +93,7 @@ p: // goto loop
     cout << "\n 11. Payment All Records.";
     cout << "\n 12. Go Back";
     cout << "\n\n Enter your Choice  : ";
-    cin >> choice;
+    cin >> choice; while (cin.fail()) { cin.clear();   cin.ignore();  }
         switch (choice)
         {
         case 1:
@@ -142,7 +142,7 @@ void bank::atm_management()
     cout << "\n 3. Account Details";
     cout << "\n 4. Go Back.";
     cout << "\n\n Enter your Choice  : ";
-    cin >> choice;
+    cin >> choice; while (cin.fail()) { cin.clear();   cin.ignore();  }
     switch (choice)
         {
         case 1:
@@ -351,7 +351,7 @@ void bank::transfer()
     file.open("bank.txt",ios::in);
     if(!file)
     {
-        cout<<"\n\n\n\t\t File Opening Error !!!";
+        cout<<"\n\n\n\t\t File Opening Error !!!"; getch();
     }
     else
     {
@@ -360,10 +360,10 @@ void bank::transfer()
         cout<< "\n\n Receiver User ID : ";
         cin>>receiver_id;
         cout<< "\n\n Transfer Amount  : ";
-        cin>>transfer_amount;        /// OPENING THE FILE AS READING MODE  12 lines//////////////////////////////////////////////////////////
+        cin>>transfer_amount;        /// OPENING THE FILE AS READING MODE  12 lines above//////////////////////////////////////////////////////////
         file>>id>>name>>fname>>address>>pin>>pass>>phone>>balance;  
         while (!file.eof()) // Checking if both sender and receiver exists or not and if the sender has the sufficient balance or not 
-        {   if(sender_id ==id && transfer_amount < balance){ cout << "Insufficient Balnce In Sender's Account";goto beginning;}
+        {   if(sender_id == id && transfer_amount > balance){ cout << "Insufficient Balnce In Sender's Account"; getch(); goto beginning;}
             if(sender_id == id && transfer_amount >=balance )
             { found++; sender_found++;}
             else if(receiver_id == id)
@@ -393,15 +393,16 @@ void bank::transfer()
                 temp_file<<" "<<id<<" "<<name<<" "<<fname<<" "<<address<<" "<<pin<<" "<<pass<<" "<<phone<<" "<<balance<<"\n";
             }
             file>>id>>name>>fname>>address>>pin>>pass>>phone>>balance;  
-            }
+            }  
             file.close();
             temp_file.close();
             remove("bank.txt");
             rename("temp_bank.txt","bank.txt");
+             cout << "\n\n\n Transaction Successful!!"; getch();
         }
-        else if(found == 0 ){cout << "Sender and Receiver ID Invalid!!!";}    
-        if(found == 1)
-        {if(sender_found == 0){ cout << "\n\n Sender ID Invalid!!!";}if(receiver_found==0){cout << "\n\n Sender ID Invalid!!!";}}
+        else /*if(found == 0 )*/{cout << "Sender and Receiver ID Invalid!!!";getch();}    
+        // if(found == 1)
+        // {if(sender_found == 0){ cout << "\n\n Sender ID Invalid!!!";getch();}if(receiver_found==0){cout << "\n\n Sender ID Invalid!!!";getch();}}
         
     }
 }

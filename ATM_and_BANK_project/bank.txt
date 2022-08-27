@@ -1,2 +1,5 @@
- a aa aaa aaaa 1 11 111 11111.1
- b bb bbb bbbb 2 22 222 2222
+ a b c d 1 2 3 20000
+ b c d a 1 2 3 0
+ c a b c 1 2 3 0
+ d a d s 1 2 3 0
+ e a b c 1 2 3 0
