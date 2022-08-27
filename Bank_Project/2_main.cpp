@@ -190,45 +190,79 @@ void bank::new_user()
 {
     system("cls");
     fstream file;
-    int f_pin;                                                
-    float f_balance;                                         
-    string f_name, f_fname, f_pass, f_address, f_phone, f_id; 
+    int f_pin;
+    float f_balance;
+    string f_name, f_fname, f_pass, f_address, f_phone, f_id;
+// /*Asking for user input*/
+again:
+
+{
     cout << "\n\n\t\t Add New User\n";
     cout << "\n 1.User ID          :";
+    fflush(stdin);
     cin >> id;
     cout << "\n 2.Name             :";
+    fflush(stdin);
     cin >> name;
     cout << "\n 3.Father Name      :";
+    fflush(stdin);
     cin >> fname;
     cout << "\n 4.Address          :";
+    fflush(stdin);
     cin >> address;
     cout << "\n 5.PIN              :";
+    fflush(stdin);
     cin >> address;
     cout << "\n 6.Password         :";
+    fflush(stdin);
     cin >> pin;
     cout << "\n 7.Phone No.        :";
+    fflush(stdin);
     cin >> phone;
     cout << "\n 8.Current Balance  :";
+    fflush(stdin);
     cin >> balance;
-
-    file.open("benk.txt",ios::in);
-    if(!file)// if there is no file
-   {
-    file.open("benk.txt",ios::app|ios::out);
-    file<<" "<<id<<" "<<name<<" "<<fname<<" "<<address<<" "<<pin<<" "<<pass<<""<<phone<<" "<<balance<<"\n";
-    //NOT FOR USE WE ARE STORING THE VALUE TO non f chars// file<<" "<<f_id<<" "<<f_name<<" "<<f_fname<<" "<<f_address<<" "<<pin<<" "<<pass<<" "<<phone<<" "<<balance<<"\n";
-    file.close();
-   }
-//    else
-//    {
-//     //fetch data from file.
-//     file>>
-//    }
 }
 
+    /*Adding values by the system*/
+    // {
+    // id = "p_id";
+    // name = "p_name";
+    // fname = "p_fathname";
+    // address = "p_address";
+    // pin = 1234;
+    // pass = "4321";
+    // phone = "9876543210";
+    // balance = 500.25;
+    // }
 
-
-
-
-
-
+    file.open("benk.txt", ios::in);
+    // file.seekg(0, ios::beg);        // seek the beginning of the file.
+    if (!file) // if there is no file
+    {
+        file.open("benk.txt", ios::app | ios::out);
+        file << " " << id << " " << name << " " << fname << " " << address << " " << pin << " " << pass << " " << phone << " " << balance << "\n";
+        file.close();
+        file.close();
+    }
+    else
+    {
+        file >> f_id >> f_name >> f_fname >> f_address >> f_pin >> f_pass >> f_phone >> f_balance;
+        while ((!file.eof()))
+        {
+            if (f_id == id)
+            {
+                cout << "\n\nUser ID Already Exist...";
+                getch();
+                goto again;
+            }
+            file >> f_id >> f_name >> f_fname >> f_address >> f_pin >> f_pass >> f_phone >> f_balance;
+        }
+        file.close();
+        // The condition will come only upto here if there is no already existing user ID
+        file.open("benk.txt", ios::app | ios::out);
+        file << " " << id << " " << name << " " << fname << " " << address << " " << pin << " " << pass << " " << phone << " " << balance << "\n";
+        file.close();
+    }
+    cout << "New User Created Successfully...";
+}
