@@ -1,0 +1,7 @@
+b Electricity 20000 28/8/2022
+b Electricity 500 28/8/2022
+b test 500 28/8/2022
+a test 14999 28/8/2022
+b haha 3999 28/8/2022
+b bb 10 28/8/2022
+a test 1 28/8/2022

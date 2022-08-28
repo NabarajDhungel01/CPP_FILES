@@ -1,5 +1,5 @@
- a b c d 1 2 3 20000
- b c d a 1 2 3 0
- c a b c 1 2 3 0
- d a d s 1 2 3 0
- e a b c 1 2 3 0
+ a aa aaa aaaa 1 11 111 0
+ b bb bbb bbbb 2 22 222 1
+ c cc ccc cccc 3 33 333 0
+ d dd ddd dddd 4 44 444 0
+ e ee eee eeee 5 55 555 0

@@ -228,7 +228,7 @@ void bank::already_user()
     else
     {
         cout << "\n\n \t\t  User ID : ";
-        cin >> test_id; /*file.open("bank.txt",ios::in);*/
+        cin >> test_id;file.open("bank.txt",ios::in);
         file>>id>>name>>fname>>address>>pin>>pass>>phone>>balance;
         while (!file.eof())
         {
@@ -295,7 +295,7 @@ void bank::withdraw()
     fstream file,temp_file;
     string test_id;
     float amount;// amt to be withdrawn
-    int found = 0;
+    int found;
     system("cls");
     cout<<"\n\n\n\t\t Withdraw Amount Option";
     file.open("bank.txt",ios::in);
@@ -420,12 +420,13 @@ void bank::payment()
      file.open("bank.txt",ios::in);
     if(!file)
     {
-        cout<<"\n\n\n\t\t File Opening Error!!!!\n\n";}
+        cout<<"\n\n\n\t\t File Opening Error!!!!\n\n";
+    }
     else
-    // again:
-    {  cout << "\n\n   User ID : ";
+    {  cout << "\n\n \t\t  User ID : ";
         cin >> bill_id; // /* Checking if the file ID exists or not */file.open("bank.txt",ios::in);file>>id>>name>>fname>>address>>pin>>pass>>phone>>balance;    while (!file.eof())   {  if (test_id == id)  { found++; } }file.close();  if(!(found == 1))   {   cout << "\n\n User ID Invalid..."; }      
-        ///*checking if the ID exists or not*/ file>>id>>name>>fname>>address>>pin>>pass>>phone>>balance;    while (!file.eof()){  if (bill_id == id){ goto found_continue; } file>>id>>name>>fname>>address>>pin>>pass>>phone>>balance; }file.close(); cout << "\n\n User ID Invalid..."; found =0 ;goto again; // found_continue: file.open("bank.txt",ios::in);
+       /*checking if the ID exists or not*/ file>>id>>name>>fname>>address>>pin>>pass>>phone>>balance;    while (!file.eof())   {  if (bill_id == id)  { found++; } }file.close();  if(!(found == 1))   {   cout << "\n\n User ID Invalid..."; found =0;} 
+        file.open("bank.txt",ios::in);
         cout<< "\n\n Bill Name : ";
         cin >> bill_name;
         cout << "\n\n Bill Amount : ";
@@ -433,8 +434,7 @@ void bank::payment()
         temp_file.open("temp_bank.txt",ios::app|ios::out);
         file>>id>>name>>fname>>address>>pin>>pass>>phone>>balance;
         while (!file.eof())
-        {   
-            if (bill_id == id && bill_amount > balance) { insufficient_balance = 1;  temp_file<<" "<<id<<" "<<name<<" "<<fname<<" "<<address<<" "<<pin<<" "<<pass<<" "<<phone<<" "<<balance<<"\n";}
+        {   if (bill_id == id && bill_amount > balance) { insufficient_balance = 1; }
             else if (bill_id == id && bill_amount <= balance) 
             {   balance -= bill_amount;
                 temp_file<<" "<<id<<" "<<name<<" "<<fname<<" "<<address<<" "<<pin<<" "<<pass<<" "<<phone<<" "<<balance<<"\n";
@@ -442,7 +442,7 @@ void bank::payment()
             }
             else
             {
-                temp_file<<" "<<id<<" "<<name<<" "<<fname<<" "<<address<<" "<<pin<<" "<<pass<<" "<<phone<<" "<<balance<<"\n";
+            temp_file<<" "<<id<<" "<<name<<" "<<fname<<" "<<address<<" "<<pin<<" "<<pass<<" "<<phone<<" "<<balance<<"\n";
             }
              file>>id>>name>>fname>>address>>pin>>pass>>phone>>balance;
         }
@@ -456,12 +456,12 @@ void bank::payment()
             bill_file.open("Bills.txt", ios::app|ios::out);
             bill_file << bill_id <<" "<< bill_name<<" "<< bill_amount << " " <<x.wDay<<"/"<<x.wMonth<<"/"<<x.wYear<<"\n";
             bill_file.close();
-            cout<<" \n\n \t\t"<<bill_name<< "  Bill Pay Successfully ";
+            cout<<" \n\n \t\t"<<bill_name<< "Bill Pay Successfully ";
         }
-        else if( found == 0 && insufficient_balance == 0) 
-            { cout << " \n\n User ID Invalid !!!";}
+        else if ( found == 0 )
+        { cout << " \n\n User ID Invalid !!!";}
         else if ( insufficient_balance == 1 ) 
-        { cout << "\n\n Insufficient Balance in "<< name <<"'s Account";}
+        { cout << "Insufficient Balance in"<<name <<"'s Account";}
     }
 }
 main()
