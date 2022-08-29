@@ -21,6 +21,10 @@ public:
     void transfer();
     void payment();
     void search();
+    void edit();
+    void del(); //delete user record
+    void show_all_records();
+    void show_all_payments();
 };
 void bank::menu()
 {
@@ -120,8 +124,10 @@ p: // goto loop
             search();
             break;
         case 8:
+            edit();
             break;
         case 9:
+            del();
             break;
         case 10:
             break;
@@ -472,7 +478,7 @@ void bank::search()
     fstream file;
     string search_id;
     int found=0;
-    cout<< " 'n\n\n\t\t Search User Record ";
+    cout<< " \n\n\t\t Search User Record ";
     file.open("bank.txt",ios::in);
     if(!file)
     {
@@ -489,9 +495,10 @@ void bank::search()
             {
                 system("cls");
                 cout<< " 'n\n\n\t\t Search User Record ";
-                cout <<"\n\n\n \t\tUser ID : "<<id<<" \t\tName : "<<name<<"\t\tFather's Name :  "<<fname;
-                cout <<"\n\n\t\t Addess : "<<address<<" Phone : "<<phone;
-                cout <<"\n\t\tPIN : "<<pin<<  "\t\tPassword :  "<<pass; 
+                cout <<"\n User ID       : "<<id       ;
+                cout <<"\n Name          : "<<name     ;
+                cout <<"\n Father's Name : "<<fname    ;cout <<"\n Address       : "<<address   ;cout <<"\n Phone         : "<<phone    ;cout <<"\n Balance       : "<<balance  ;cout <<"\n PIN           : "<<pin      ;
+                cout <<"\n Password      : "<<pass     ;
                 found++;
             }
              file>>id>>name>>fname>>address>>pin>>pass>>phone>>balance;
@@ -501,6 +508,98 @@ void bank::search()
         {  cout << "\n\n User ID Can't Found...";  }        
     }   
 }
+ void bank::edit()
+ {
+    system("cls");
+    fstream file,temp_file;
+    string test_id,new_name, new_fname, new_pass, new_address, new_phone/*,id*/;
+    string new_pin; int found = 0;
+    cout<<"\n\n\t\t Edit User Record.";
+    file.open("bank.txt",ios::in);
+    if(!file)
+    {
+        cout<<"File Opening Error!!";
+    }
+    else
+    {
+     cout << "User ID : "   ;
+     cin >> test_id;
+     temp_file.open("temp_bank.txt",ios::app|ios::out);
+     file>>id>>name>>fname>>address>>pin>>pass>>phone>>balance;
+     while (!file.eof())
+        {
+            if (test_id == id)
+            {   system("cls");
+                cout << "\n 1.**NEW** Name             :";
+                cin >> new_name;
+                cout << "\n 2.**NEW** Father Name      :";
+                cin >> new_fname;
+                cout << "\n 3.**NEW** Address          :";
+                cin >> new_address;
+                cout << "\n 4.**NEW** PIN              :";
+                cin >> new_pin;
+                cout << "\n 5.**NEW** Password         :";
+                cin >> new_pass;
+                cout << "\n 6.**NEW** Phone No.        :";
+                cin >> new_phone; 
+                temp_file<<" "<<id<<" "<<new_name<<" "<<new_fname<<" "<<new_address<<" "<<new_pin<<" "<<new_pass<<" "<<new_phone<<" "<<balance<<"\n";
+                cout<<"Record Successfully Updated!!!";
+                found++;
+                }
+            else
+            {
+                temp_file<<" "<<id<<" "<<name<<" "<<fname<<" "<<address<<" "<<pin<<" "<<pass<<" "<<phone<<" "<<balance<<"\n";
+            }
+             file>>id>>name>>fname>>address>>pin>>pass>>phone>>balance;
+        }
+        file.close();
+        temp_file.close();
+        remove("bank.txt");
+        rename("temp_bank.txt","bank.txt");
+        if (found == 0)
+        {            cout << "\n\n User ID Can't Found...";        } 
+    }   
+ }
+ void bank::del()   //// MAKE LIST OF THE FILE THAT IS DELETED
+ {
+     system("cls");
+    fstream file,temp_file;
+    string test_id ;
+    int found = 0;
+    cout<<"\n\n\t\t Delete User Record.\n\n\n";
+    file.open("bank.txt",ios::in);
+    if(!file)
+    {
+        cout<<"File Opening Error!!";
+    }
+    else
+    {
+     cout << "User ID : "   ;
+     cin >> test_id;
+     temp_file.open("temp_bank.txt",ios::app|ios::out);
+     file>>id>>name>>fname>>address>>pin>>pass>>phone>>balance;
+     while (!file.eof())
+        {
+            if (test_id == id)
+            {   system("cls");
+                //we are deleting the record so no need the write the file// temp_file<<" "<<id<<" "<<new_name<<" "<<new_fname<<" "<<new_address<<" "<<new_pin<<" "<<new_pass<<" "<<new_phone<<" "<<balance<<"\n";
+                cout<<"Record Deleted  Successfully!!!";            
+                found++;
+                }
+            else
+            {
+                temp_file<<" "<<id<<" "<<name<<" "<<fname<<" "<<address<<" "<<pin<<" "<<pass<<" "<<phone<<" "<<balance<<"\n";
+            }
+             file>>id>>name>>fname>>address>>pin>>pass>>phone>>balance;
+        }
+        file.close();
+        temp_file.close();
+        remove("bank.txt");
+        rename("temp_bank.txt","bank.txt");
+        if (found == 0)
+        {            cout << "\n\n User ID Can't Found...";        } 
+    }
+ }
 main()
 {
     bank obj; 

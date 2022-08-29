@@ -4,80 +4,60 @@
 #include <fstream>
 #include <windows.h>
 using namespace std;
-
 class bank
 {
 private:
     int pin;
     float balance;
-    string id, pass, name, fname, address, phone; // fname = father name
+    string id, pass, name, fname, address, phone;
+
 public:
     void menu();
     void bank_management();
     void atm_management();
     void new_user();
 };
-void login();
-int main()
-{
-
-    bank obj;
-
-    // obj.menu();
-    obj.new_user();
-}
-
 void bank::menu()
 {
-p: // goto loop
-    int choice;
+p:
     system("cls");
+    int choice;
+    char ch;
+    string pin, pass, email;
     cout << "\n\n\n\t\t\tControl Panel";
     cout << "\n\n 1. Bank  Management";
     cout << "\n 2. ATM Management";
     cout << "\n 3. Exit";
     cout << "\n\n Enter your choice  : ";
     cin >> choice;
-    switch (choice) // login
+    switch (choice)
     {
     case 1:
-        /*login*/ {
-            system("cls");
-            char ch;
-            string pinn, pass, email;
-            cout << "\n\n \t\t Login Account";
-            cout << "\n\n E-mail  :";
-            cin >> email;
-            // cout << " \t\t"<< email;        // checking output
-            cout << "\n Pin     :";
-            for (int i = 0; i < 4; i++)
-            {
-                ch = getch();
-                pinn += ch;
-                cout << "*";
-            }
-            // cout <<"\t\t "<< pinn;      // checking output
-            getch(); // give chance to press enter to further continue to password // otherwise enter key will be registered in pass
-            cout << "\n Password     : ";
-            for (int i = 0; i < 4; i++)
-            {
-
-                ch = getch();
-                pass += ch;
-                cout << "*";
-            }
-            // cout << "\t\t"<< pass;      // checking output
-
-            if (email == "nabaraj.dhungeel@gmail.com" && pinn == "1234" && pass == "4321")
-            {
-                bank_management();
-            }
-            else
-            {
-                cout << endl
-                     << endl
-                     << "Incorrect Credentials !!!";
-            }
+        system("cls");
+        cout << "\n\n \t\t Login Account";
+        cout << "\n\n E-mail  :";
+        cin >> email;
+        cout << "\n Pin     :";
+        for (int i = 1; i <= 5; i++)
+        {
+            ch = getch();
+            pin += ch;
+            cout << "*";
+        }
+        cout << "\n Password     : ";
+        for (int i = 1; i <= 5; i++)
+        {
+            ch = getch();
+            pass += ch;
+            cout << "*";
+        }
+        if (email == "khizar@gmail.com" && pin == "13366" && pass == "14366")
+        {
+            bank_management();
+        }
+        else
+        {
+            cout << "\n\n Incorrect Credentials !!!";
         }
         break;
     case 2:
@@ -85,15 +65,12 @@ p: // goto loop
         break;
     case 3:
         exit(0);
-
     default:
         cout << "Invalid Value.. Please try again";
-        break;
     }
     getch();
-    goto p; // goto loop
+    goto p;
 }
-
 void bank::bank_management()
 {
 p: // goto loop
@@ -114,49 +91,44 @@ p: // goto loop
     cout << "\n 12. Go Back";
     cout << "\n\n Enter your Choice  : ";
     cin >> choice;
-    /*Switch Choice*/ {
-        switch (choice)
-        {
-        case 1:
-            new_user();
-            break;
-        case 2:
-            break;
-        case 3:
-            break;
-        case 4:
-            break;
-        case 5:
-            break;
-        case 6:
-            break;
-        case 7:
-            break;
-        case 8:
-            break;
-        case 9:
-            break;
-        case 10:
-            break;
-        case 11:
-            break;
-        case 12:
-            menu();
-            break;
-        default:
-            cout << "Invalid Choice !!!";
-            break;
-        }
+    switch (choice)
+    {
+    case 1:
+        new_user();
+        break;
+    case 2:
+        break;
+    case 3:
+        break;
+    case 4:
+        break;
+    case 5:
+        break;
+    case 6:
+        break;
+    case 7:
+        break;
+    case 8:
+        break;
+    case 9:
+        break;
+    case 10:
+        break;
+    case 11:
+        break;
+    case 12:
+        menu();
+    default:
+        cout << "Invalid Choice !!!";
     }
     getch();
-    goto p; // goto loop
+    goto p;
 }
-
 void bank::atm_management()
 {
-p: // goto loop
-    int choice;
+p:
     system("cls");
+    int choice;
     cout << "\n\n\t\t ATM Management System";
     cout << "\n\n 1. User Login & Check Balance";
     cout << "\n 2. Withrdraw Amount";
@@ -164,88 +136,120 @@ p: // goto loop
     cout << "\n 4. Go Back.";
     cout << "\n\n Enter your Choice  : ";
     cin >> choice;
-    /*Switch Choice*/ {
-        switch (choice)
-        {
-        case 1:
-
-            break;
-        case 2:
-            break;
-        case 3:
-            break;
-        case 4:
-            menu();
-            break;
-        default:
-            cout << "Invalid Choice !!!";
-            break;
-        }
+    switch (choice)
+    {
+    case 1:
+        break;
+    case 2:
+        break;
+    case 3:
+        break;
+    case 4:
+        menu();
+    default:
+        cout << "Invalid Choice !!!";
     }
     getch();
-    goto p; // goto loop
+    goto p;
 }
-
 void bank::new_user()
 {
-p:
-    system("cls");
-    fstream file;
-    int f_pin;                                                // p-> pin
-    float f_balance;                                          // b->balance
-    string f_name, f_fname, f_pass, f_address, f_phone, f_id; // n->name   f->fathername  pa->passowrd   a-> address   ph->phone no. i->id
-    cout << "\n\n\t\t Add New User\n";
-    cout << "\n 1.User ID          :";
-    cin >> id;
-    cout << "\n 2.Name             :";
-    cin >> name;
-    cout << "\n 3.Father Name      :";
-    cin >> fname;
-    cout << "\n 4.Address          :";
-    cin >> address;
-    cout << "\n 5.PIN              :";
-    cin >> address;
-    cout << "\n 6.Password         :";
-    cin >> pin;
-    cout << "\n 7.Phone No.        :";
-    cin >> phone;
-    cout << "\n 8.Current Balance  :";
-    cin >> balance;
-    file.open("bank.txt", ios::in);
-    if (!file)
+    while (1)
     {
-                                file.open("bank.txt", ios::app|ios::out);
+        int loopp = 0;
+    p:
+        system("cls");
+        fstream file;
+        int f_pin;
+        float f_balance;
+        string f_name, f_fname, f_pass, f_address, f_phone, f_id;
+        cout << "\n\n\t\t Add New User\n";
+        cout << "\n 1.User ID          :";
+        cin >> id;
+        // CHECKING IF THE ID REPEATS OR NOT IF THERE IS FILE
+        {
+            file.open("bank.txt", ios::in);
+            if (loopp == 0)
+            {
+                if (!file) // if there is no file
+                {
+                    goto CCC; // continue taking input
+                }
+            }
 
-        file<<" "<<id<<" "<<name<<" "<<fname<<" "<<address<<" "<<pin<<" "<<pass<<" "<<phone<<" "<<balance<<"\n";
+            if (file)
+            {
+                file.open("bank.txt", ios::in);
+                file >> f_id >> f_name >> f_fname >> f_address >> f_pin >> f_pass >> f_phone >> f_balance;
+                while ((!file.eof()))
+                {
+                    if (f_id == id)
+                    {
+                        cout << "\n\nUser ID Already Exist...";
+                        getch();
+                        file.close();
+                        loopp = 1; // this will change the loopp value to 1 so that the presence of bank file is not checked again.
+                        goto p;
+                    }
+                    else
+                    {
+                        int do_nothinh = +do_nothinh;
+                    }
+                }
+                if (f_id != id)
+                {
+                    goto CCC; // if the id is not repeated ask for further input
+                }
+            }
+        }
+    CCC:
+        cout << "\n 2.Name             :";
+        cin >> name;
+        cout << "\n 3.Father Name      :";
+        cin >> fname;
+        cout << "\n 4.Address          :";
+        cin >> address;
+        cout << "\n 5.PIN              :";
+        cin >> pin;
+        cout << "\n 6.Password         :";
+        cin >> pass;
+        cout << "\n 7.Phone No.        :";
+        cin >> phone;
+        cout << "\n 8.Current Balance  :";
+        cin >> balance;
+        file.open("bank.txt", ios::in);
+
+        file.close();
+        file.open("bank.txt", ios::app | ios::out);
+        file << " " << id << " " << name << " " << fname << " " << address << " " << pin << " " << pass << " " << phone << " " << balance << "\n";
         file.close();
     }
-    // else
-    // {
-    //         file>>f_id>>f_name>>f_fname>>f_address>>f_pin>>f_pass>>f_phone>>f_balance;
-    //     while (!file.eof())
-    //     {
-    //         if (f_id == id)
-    //         {
-    //             cout << "\n \n User ID Already Exists!";
-    //             getch();
-    //             goto p; // now after this it will not goto p bcz it have gone throgh  p and have skipped it., so we need to move to the beginnin g of the file again // ww are closing the file
-    //         }
-    //         file>>f_id>>f_name>>f_fname>>f_address>>f_pin>>f_pass>>f_phone>>f_balance;
-
-    //     }
-    //     file.close();
-
-    //     file.open("bank.txt", ios::app|ios::out);
-    //     file << " " << f_id << " " << f_name << " " << f_fname << " " << f_address << " " << f_pin << " " << f_pass << " " << f_phone << " " << f_balance << "\n";
-    //     file.close();
-    // }
-    if(!file)
-    cout<< "\n\n New User Account Created Successfully...";
+    cout << "New User  Created Successfully...";
 }
-
-
-
-
-
-
-
+void check_file_loop();
+main()
+{
+    check_file_loop();
+    // bank obj;
+    // obj.new_user();
+}
+void check_file_loop()
+{   string check_id;
+    cout << "ID : ";
+    cin >> check_id;
+    fstream file;
+    int f_pin;
+    float f_balance;
+    string f_name, f_fname, f_pass, f_address, f_phone, f_id;
+    file.open("bank.txt", ios::in);
+    file >> f_id >> f_name >> f_fname >> f_address >> f_pin >> f_pass >> f_phone >> f_balance; // pointing to the first line of the code
+    while (!file.eof())
+    {
+        if (f_id == check_id)
+        {
+            cout << "\n\nUser ID Already Exist...";
+        }
+            cout << "\n\n ID : "<< f_id;
+            file >> f_id >> f_name >> f_fname >> f_address >> f_pin >> f_pass >> f_phone >> f_balance; // takes the input from the next line.
+    }
+}

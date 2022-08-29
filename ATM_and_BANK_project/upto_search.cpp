@@ -489,9 +489,9 @@ void bank::search()
             {
                 system("cls");
                 cout<< " 'n\n\n\t\t Search User Record ";
-                cout <<"\n\n\n \t\tUser ID : "<<id<<" \t\tName : "<<name<<"\t\tFather's Name :  "<<fname;
-                cout <<"\n\n\t\t Addess : "<<address<<" Phone : "<<phone;
-                cout <<"\n\t\tPIN : "<<pin<<  "\t\tPassword :  "<<pass; 
+                cout <<"\n User ID       : "<<id       ;
+                cout <<"\n Name            : "<<name     ;
+                cout <<"\n Father's Name    : "<<fname    ;   cout <<"\n Address           : "<<address   ;   cout <<"\n Phone            : "<<phone    ;   cout <<"\n Balance         : "<<balance  ;   cout <<"\n PIN            : "<<pin      ;  cout <<"\n Password      : "<<pass     ;
                 found++;
             }
              file>>id>>name>>fname>>address>>pin>>pass>>phone>>balance;
