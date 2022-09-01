@@ -22,7 +22,7 @@ int main()
         {
             if (all[i] == ',')
             {
-                // cout << all[i]; // prints comma
+                // cout <<  all[i]; // prints comma
                 i++;
                 comma_found++;
                 switch (comma_found)
