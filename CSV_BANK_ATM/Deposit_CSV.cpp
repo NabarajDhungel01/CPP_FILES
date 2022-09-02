@@ -34,7 +34,6 @@ void bank::new_user()
 p:
     system("cls");
     fstream file;
-    string f_pin;
     /*  */ int repeat_id, repeat_name, repeat_fname, repeat_address, repeat_phone, repeat_balance, repeat_pin, repeat_pass;
     int comma_found, comma_found_id, comma_found_name, comma_found_fname, comma_found_address, comma_found_pin, comma_found_pass, comma_found_phone, comma_found_balance;
     int position = 1;
@@ -42,9 +41,7 @@ p:
 
     /*  */ string all;
     /*  */ string csv_id = "\0", csv_name = "\0", csv_fname = "\0", csv_address = "\0", csv_phone = "\0", csv_balance = "\0", csv_pin = "\0", csv_pass = "\0";
-    float f_balance;
     string NEW_csv_id = "\0", NEW_csv_name = "\0", NEW_csv_fname = "\0", NEW_csv_address = "\0", NEW_csv_phone = "\0", NEW_csv_balance = "\0", NEW_csv_pin = "\0", NEW_csv_pass = "\0";
-    string f_name, f_fname, f_pass, f_address, f_phone, f_id;
     cout << "\n\n\t\t Add New User\n";
     cout << "\n 1.User ID          :";
     cin >> id;
@@ -62,7 +59,7 @@ p:
     cin >> phone;
     cout << "\n 8.Current Balance  :";
     cin >> balance;
-    file.open("bank.txt", ios::in);
+    file.open("bank.csv", ios::in);
     if (!file) // if there is no file
     {
         file.open("bank.csv", ios::app | ios::out);
@@ -163,7 +160,6 @@ p:
                     NEW_csv_id = csv_id;
                     cout << " ID is : "<<id<<endl;
                     cout << "CSV ID is : "<<csv_id<<endl;
-                    cout << "F ID is : "<<f_id<<endl;
                     cout << "CSV NEW ID is : "<< NEW_csv_id <<endl;
 
                    /* CHECKING IF THE ID IN THE DATABASE MATCHES WITH THE PROVIDED INPUT */ 
@@ -220,7 +216,7 @@ p:
 
 
                 
-                if (f_id == csv_id)
+                if (id == csv_id)
                 {
                     cout << "\n\nUser ID Already Exist...";
                     getch();
@@ -232,9 +228,6 @@ p:
                 file >> all;
             }
         }
-        file.close();
-        file.open("bank.txt", ios::app | ios::out);
-        file << " " << id << " " << name << " " << fname << " " << address << " " << pin << " " << pass << " " << phone << " " << balance << "\n";
         file.close();
     }
     cout << "New User  Created Successfully...";
