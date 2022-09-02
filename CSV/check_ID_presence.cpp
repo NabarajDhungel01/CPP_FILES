@@ -4,18 +4,10 @@
 #include <string>
 using namespace std;
 
-int find_length(string line); // find length of the entire line including commas
 int main()
 {
     string csv_id = "\0", csv_name = "\0", csv_fname = "\0", csv_address = "\0", csv_phone = "\0", csv_balance = "\0", csv_pin = "\0", csv_pass = "\0";
-    string all,test_id;
-    fstream fp,temp_fp;
-    string deposit_amount;
-    cout << "Enter ID : ";
-    cin >> test_id;
-    cout << "\n Deposit amount : ";
-    cin >> deposit_amount; 
-    fp.open("ok.csv", ios::in);
+    // string deposit_amount;
     fp >> all;
 
     while (!fp.eof())
@@ -165,6 +157,7 @@ int main()
         cout << " \n Phone : " << csv_phone;
         cout << " \n Balance : " << csv_balance;
 
+        fstream temp_fp;
         temp_fp.open("temp_ok.csv", ios::app | ios::out);
         temp_fp << " " << csv_id << "," << csv_name << "," << csv_fname << "," << csv_address << "," << csv_pin << "," << csv_pass << "," << csv_phone << "," << csv_balance << "\n";
         temp_fp.close();
