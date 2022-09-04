@@ -35,13 +35,21 @@ string convert_line_to_space(string input_string); // CONVERTS UNDERSCORE TO SPA
 
 void bank::new_user()
 {   
+ int repeat = 0;
 p:
     system("cls");
+    if (repeat > 0 )
+    {
+        cout << "\n\n Enter Details AGAIN !!!";
+        cout << "\n \""<< id << "\" ID is already taken";
+    }
+    
     fstream file;
     /*  */ int repeat_id, repeat_name, repeat_fname, repeat_address, repeat_phone, repeat_balance, repeat_pin, repeat_pass;
     int comma_found, comma_found_id, comma_found_name, comma_found_fname, comma_found_address, comma_found_pin, comma_found_pass, comma_found_phone, comma_found_balance;
     int position = 1;
     int test_id_found;
+    int found = 0;
 
     /*  */ string all;
     /*  */ string csv_id = "\0", csv_name = "\0", csv_fname = "\0", csv_address = "\0", csv_phone = "\0", csv_balance = "\0", csv_pin = "\0", csv_pass = "\0";
@@ -202,7 +210,7 @@ p:
                     //
                     // }
                     // }
-             cout << "\n\n\n Line " <<    " 193 "     <<"\n\n\n\t"; getch();
+             cout << "\n\n\n Line " <<    " 205 "     <<"\n\n\n\t"; getch();
 
                     // if (id == csv_id)
                     // {
@@ -256,11 +264,13 @@ p:
                         }
                     // }
                 }
-             cout << "\n\n\n Line " <<    " 247 "     <<"\n\n\n\t"; getch();
+             cout << "\n\n\n Line " <<    " 259 "     <<"\n\n\n\t"; getch();
 
                 cout << " \n\n ID is : " << id  <<"AND \n\n CSV_ID = " << csv_id <<endl ;
                 if (id == csv_id)
-                {
+                {   
+                    found ++;
+                    repeat ++;
                     cout << "\n\nUser ID Already Exist...";
                     getch();
                     /* IF ID MATCHES */
@@ -275,8 +285,10 @@ p:
                 file >> all;
 
         }
-         cout << "\n\n\n Line " <<    " 77 "     <<"\n\n\n\t"; getch();
+         cout << "\n\n\n Line " <<    " 278 "     <<"\n\n\n\t"; getch();
 
+        file << id << "," << name << "," << fname << "," << address << "," << pin << "," << pass << "," << phone << "," << balance << "\n";
+        
         file.close();
     }
     cout << "New User  Created Successfully...";
