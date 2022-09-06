@@ -37,16 +37,9 @@ int is_space_present(string input_string);
 int is_input_all_number(string input_string); // checks if all the input is the number
 int is_comma_present_in_input_string(string input_string);
 
-int main()
-{
-    bank obj1;
-    obj1.new_user();
-}
-
 void bank::new_user()
 {
-    /*  */ string csv_id = "\0", csv_name = "\0", csv_fname = "\0", csv_address = "\0", csv_phone = "\0", csv_balance = "\0", csv_pin = "\0", csv_pass = "\0";
-    int repeat = 0, position = 1;
+    int repeat = 0;
 starting_of_new_user:
     system("cls");
     if (repeat > 0) // if the users want to add the id that is already taken
@@ -56,37 +49,159 @@ starting_of_new_user:
     }
     // fstream file;
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~... ASKING USER FOR THE DETAILS....~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    {cout << "\n\n\t\t Add New User\n";
-    cout << "\n 1.User ID          :";
-    cin >> id;
-    cout << "\n 2.Name             :";
-    cin >> name;
-    cout << "\n 3.Father Name      :";
-    cin >> fname;
-    cout << "\n 4.Address          :";
-    cin >> address;
-    cout << "\n 5.PIN              :";
-    cin >> pin;
-    cout << "\n 6.Password         :";
-    cin >> pass;
-    cout << "\n 7.Phone No.        :";
-    cin >> phone;
-    cout << "\n 8.Current Balance  :";
-    cin >> balance;}
+    {
+        cout << "\n\n\t\t Add New User\n";
+    create_new_id: ///////////////////////////////////////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        cout << "\n 1.User ID  (max. 20 chars)        :";
+        getline(cin, id);
+        if (is_comma_present_in_input_string(id))
+        {
+            goto create_new_id;
+        }
+        // checking if the user has entered space in the input if the user have added the space display error message and ask for input again;
+        if (is_space_present(id))
+        {
+            cout << "Invalid Input \t ||  Enter \"ID\"  without spaces \n ";
+            goto create_new_id;
+        }
+        if (id.length() > 20)
+        {
+            cout << " Enter id length less than 20 ";
+            goto create_new_id;
+        }
+
+        id = convert_space_to_line(id); // this is for error handling if the users is able to input the id with space by any chnace the space will be converted to the underscore
+    create_new_name:                    ///////////////////////////////////////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        cout << "\n 2.Name             :";
+        getline(cin, name);
+        if (is_comma_present_in_input_string(name))
+        {
+            goto create_new_name;
+        }
+        name = convert_space_to_line(name);
+    create_new_fname: ///////////////////////////////////////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        cout << "\n 3.Father Name      :";
+        getline(cin, fname);
+        if (is_comma_present_in_input_string(fname))
+        {
+            goto create_new_fname;
+        }
+        fname = convert_space_to_line(fname);
+    create_new_address: ///////////////////////////////////////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        cout << "\n 4.Address          :";
+        getline(cin, address);
+        if (is_comma_present_in_input_string(address))
+        {
+            goto create_new_address;
+        }
+        address = convert_space_to_line(address);
+    create_new_pin: ///////////////////////////////////////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        cout << "\n 5.PIN  (4- digits)            :";
+        getline(cin, pin);
+        cout << " PIN is : " << pin;
+        if (is_comma_present_in_input_string(pin))
+        {
+            goto create_new_pin;
+        }
+        if (is_space_present(pin))
+        {
+            cout << "Invalid Input \t ||  Enter \"PIN\"  without spaces \n ";
+            goto create_new_pin;
+        }
+        if (pin.length() != 4)
+        {
+            cout << "Please enter 4 digit pin \n";
+            goto create_new_pin;
+        }
+        if (!is_input_all_number(pin))
+        {
+            cout << "Please enter all four numberic characters!! \n";
+            goto create_new_pin;
+        }
+
+        pin = convert_space_to_line(pin);
+
+    create_new_password: ///////////////////////////////////////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        cout << "\n 6.Password  ( 5 alphanumeric characters )       :";
+        getline(cin, pass);
+        if (is_comma_present_in_input_string(pass))
+        {
+            goto create_new_password;
+        }
+        if (is_space_present(pass))
+        {
+            cout << "Invalid Input \t ||  Enter 5 alphanumeric \"PASSWORD\"  without spaces \n ";
+            goto create_new_password;
+        }
+        if (pass.length() != 5)
+        {
+            cout << "Please enter 5 digit alphanumeric  PASSOWORD \n";
+            goto create_new_password;
+        }
+        pass = convert_space_to_line(pass);
+    create_new_phone: ///////////////////////////////////////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        cout << "\n 7.Phone No.  (max.15 )      :";
+        getline(cin, phone);
+        if (is_comma_present_in_input_string(phone))
+        {
+            goto create_new_phone;
+        }
+        if (is_space_present(phone))
+        {
+            cout << "Invalid Input \t ||  Enter  \"PHONE NO. \"  without spaces \n ";
+            goto create_new_phone;
+        }
+        if (phone.length() > 15)
+        {
+            cout << "Invalid Input \t ||  Enter  \"PHONE NO. \"  less than 15 numbers \n ";
+            goto create_new_phone;
+        }
+        if (!(is_input_all_number(phone)))
+        {
+            cout << "Enter all numeric characters for phone number";
+            goto create_new_phone;
+        }
+        phone = convert_space_to_line(phone);
+    create_new_balance: ///////////////////////////////////////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        cout << "\n 8.Opening Balance  :";
+        getline(cin, balance);
+        if (is_comma_present_in_input_string(balance))
+        {
+            goto create_new_balance;
+        }
+        if (is_space_present(balance))
+        {
+            cout << "Invalid Input \t ||  Enter \" OPENING BALANCE\"   without spaces \n ";
+            goto create_new_balance;
+        }
+        if (!is_input_all_number(balance))
+        {
+            cout << "Balance can't contain characters !! \n\t Enter balance again ... \n";
+            goto create_new_balance;
+        }
+
+        if (balance.length() > 12)
+        {
+            cout << "Invalid Input \t ||  Enter  \"PHONE NO. \"  less than trillion ( 12 digits)  \n ";
+            goto create_new_balance;
+        }
+
+        // balance = convert_space_to_line(balance);
+    }
+
     // DISPLAYING USERS INPUT
-    
     {
         {
-            // system("cls");
+            system("cls");
             cout << " 'n\n\n\t\t INPUT  ";
             cout << "\n User ID       : " << id;
             cout << "\n Name          : " << name;
             cout << "\n Father's Name : " << fname;
             cout << "\n Address       : " << address;
-            cout << "\n PIN           : " << pin;
-            cout << "\n Password      : " << pass;
             cout << "\n Phone         : " << phone;
             cout << "\n Balance       : " << balance;
+            cout << "\n PIN           : " << pin;
+            cout << "\n Password      : " << pass;
         }
     }
 
@@ -95,7 +210,6 @@ starting_of_new_user:
     file.open("bank.csv", ios::in);
     if (!file) // if there is no file simply write information to the file..
     {
-        file.open("bank.csv", ios::app | ios::out);
         // printing heading  for the first time
         file << "ID"
              << ","
@@ -119,93 +233,50 @@ starting_of_new_user:
     }
     else // if there is file already, we have to open the file and check if the id is repeated or not
     {
-
+        
         // file.open("bank.csv",ios::out||ios::app ); we have already opened the file in input mode so no need to open again for this time
         // fetching the data from the bank.csv file
         file >> all; // this point towards the first line which is heading so lets move to the next line
         file >> all; // this point to the second line
 
-        // CHECKING IF THE ID IS REPEATED OR NOT
-        
-            
-                while (!file.eof())
-                {
-                    int comma_found = 0; // we are declaring this variable and setting the value to zero because,
+        // CHECKING IF THE ID IS REPEATED OR NOT 
+        {{
+              while(!file.eof())
+              {
+                int comma_found = 0; // we are declaring this variable and setting the value to zero because,  
 
-                    // storing the comma separated values to the new varibale.. for this we have to iterate through every string while the comma is found and we will incrase the position variable and comma found variable accordingly and
-                    // until the comma found is 0, we will store the characters to the ID variable and so on..
+                    // storing the comma separated values to the new varibale.. for this we have to iterate through every string while the comma is found and we will incrase the position variable and comma found variable accordingly and 
+                    //until the comma found is 0, we will store the characters to the ID variable and so on..
                     for (int i = 0; i < all.length(); i++)
-                    {
+                {
 
-                        if (all[i] == ',')
-                        {
-                            {
-                                // cout <<  all[i]; // prints comma
-                                i++;
-                                comma_found++;
-                                position++; // after one comma is found the position is increased by 1.
-                            }
-                        }
-                        /* THE STRIGS VALUE WILL BE ADDED TO THE RESPECTIVE POSITIONS.  */
-                        switch (position) //  the default value of position is 1 so while the 1st comma is not encountered the value will keep stacking on the csv_id string
-                        {
-                        case 1:
-                            csv_id += all[i];
-                            break;
-                        case 2:
-                            csv_name += all[i];
-                            break;
-                        case 3:
-                            csv_fname += all[i];
-                            break;
-                        case 4:
-                            csv_address += all[i];
-                            break;
-                        case 5:
-                            csv_pin += all[i];
-                            break;
-                        case 6:
-                            csv_pass += all[i];
-                            break;
-                        case 7:
-                            csv_phone += all[i];
-                            break;
-                        case 8:
-                            csv_balance += all[i];
-                            break;
-                        default:
-                            cout << "Default Printed : Case :: " << position; // IF SOMETHING ERROR HAPPENS.....
-                            break;
-                        }
-                        /* CHECKING THE FILE DETAILS */
-                        cout << " 'n\n\n\t\t INPUT  ";
-                        cout << "\n User ID       : " << csv_id;
-                        cout << "\n Name          : " << csv_name;
-                        cout << "\n Father's Name : " << csv_fname;
-                        cout << "\n Address       : " << csv_address;
-                        cout << "\n PIN           : " << csv_pin;
-                        cout << "\n Password      : " << csv_pass;
-                        cout << "\n Phone         : " << csv_phone;
-                        cout << "\n Balance       : " << csv_balance;
-                        if (id == csv_id)
-                        {
-                            cout << "\n\nUser ID Already Exist...";
-                            repeat++;
-                            getch();
-                            /* IF ID MATCHES */ /* duplicate id found so */
-                            goto starting_of_new_user;
-                            /* else */
-                            /* IF the ID matches then it will go to beginning */
-                        }
+                    if (all[i] == ',')
+                    {
+                        // cout <<  all[i]; // prints comma
+                        i++;
+                        comma_found++;
+                        position++; // after one comma is found the position is increased by 1.
                     }
-                }
-                file << id << "," << name << "," << fname << "," << address << "," << pin << "," << pass << "," << phone << "," << balance << "\n";
-                file.close();
-            
-        
+
+
+
+
+
+
+              }
+        }}
+   
+   
+   
     }
 }
 
+int main()
+{
+
+    bank obj1;
+    obj1.new_user();
+}
 string convert_space_to_line(string input_string)
 {
     string output_string = "\0";
