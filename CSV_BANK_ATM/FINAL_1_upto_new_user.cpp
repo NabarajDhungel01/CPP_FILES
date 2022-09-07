@@ -301,6 +301,7 @@ void bank::new_user()
                 file.close();
                 // writing the adata  
                 file.open("bank.csv",ios::app|ios::out);
+                cout << "\nfile opened line 205";
                 file << id << "," << name << "," << fname << "," << address << "," << pin << "," << pass << "," << phone << "," << balance << "\n";
                 file.close();
                 cout <<"User Add Successful!";
