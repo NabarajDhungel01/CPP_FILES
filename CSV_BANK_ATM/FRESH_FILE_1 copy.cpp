@@ -255,7 +255,7 @@ starting_of_new_user:
                         // cout <<  all[i]; // prints comma
                         i++;
                         comma_found++;
-                        position++; // after one comma is found the position is increased by 1.
+                        // position++; // after one comma is found the position is increased by 1.
                     }
 
 

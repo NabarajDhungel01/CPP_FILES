@@ -8,7 +8,6 @@ class bank
 {
 private:
     string id = "\0", pass = "\0", name = "\0", fname = "\0", address = "\0", phone = "\0", pin = "\0", balance = "\0";
-
 public:
     void menu() {}
     void bank_management() {}
@@ -557,8 +556,7 @@ void bank::deposit()
     else
     {
         cout << "\n\n \t\t  User ID : ";
-        // cin >> test_id;
-        getline(cin,test_id);
+        cin >> test_id;
         temp_file.open("temp_bank.csv", ios::app | ios::out);
         file >> all;
         while (!file.eof())
@@ -632,8 +630,7 @@ void bank::deposit()
                     {
                     create_new_amount:
                         cout << "Amount For Deposit  : ";
-                        // cin >> amount;
-                        getline(cin,amount);
+                        cin >> amount;
                         if (is_comma_present_in_input_string(amount))
                         {
                             goto create_new_amount;
@@ -660,15 +657,13 @@ void bank::deposit()
                         csv_balance = to_string(stoi(amount) + stoi(csv_balance));
                         // csv_balance += amount; // updated amount
 
-                        temp_file << csv_id << "," << csv_name << "," << csv_fname << "," << csv_address << "," << csv_pin << "," << csv_pass << "," << csv_phone << "," << csv_balance << ","
-                                  << "\n";
+                        temp_file << csv_id << "," << csv_name << "," << csv_fname << "," << csv_address << "," << csv_pin << "," << csv_pass << "," << csv_phone << "," << csv_balance << ","<< "\n";
                         found++;
                         cout << " Amount Rs." << amount << "|- Deposit Successful!!";
                     }
                     else
                     {
-                        temp_file << csv_id << "," << csv_name << "," << csv_fname << "," << csv_address << "," << csv_pin << "," << csv_pass << "," << csv_phone << "," << csv_balance << ","
-                                  << "\n";
+                        temp_file << csv_id << "," << csv_name << "," << csv_fname << "," << csv_address << "," << csv_pin << "," << csv_pass << "," << csv_phone << "," << csv_balance << ","<< "\n";
                     }
                 }
             }
@@ -686,157 +681,6 @@ void bank::deposit()
     }
 }
 
-void bank::withdraw()
-{
-    string all;
-    fstream file, temp_file;
-    string test_id;
-    string amount; // amt to be deposited
-    int found = 0;
-    system("cls");
-    cout << "\n\n\n\t\t Withdraw Amount Option";
-    file.open("bank.csv", ios::in);
-    if (!file)
-    {
-        cout << "\n\n\n\t\t File Opening Error !!!";
-    }
-    else
-    {
-        cout << "\n\n \t\t  User ID : ";
-        // cin >> test_id;
-        getline(cin,test_id);
-        temp_file.open("temp_bank.csv", ios::app | ios::out);
-        file >> all;
-        while (!file.eof())
-        {                     // int comma_found = 0;
-            int position = 1; // we are declaring this variable and setting the value to zero because,
-            string csv_id = "\0", csv_name = "\0", csv_fname = "\0", csv_address = "\0", csv_phone = "\0", csv_balance = "\0", csv_pin = "\0", csv_pass = "\0";
-
-            // storing the comma separated values to the new varibale.. for this we have to iterate through every string while the comma is found and we will incrase the position variable and comma found variable accordingly and
-            // until the comma found is 0, we will store the characters to the ID variable and so on..
-            for (int i = 0; i < all.length(); i++)
-            {
-                if (all[i] == ',')
-                {
-                    {
-                        // cout <<  all[i]; // prints comma
-                        i++;
-                        // comma_found++;
-                        position++; // after one comma is found the position is increased by 1.
-                    }
-                }
-                /* THE STRIGS VALUE WILL BE ADDED TO THE RESPECTIVE POSITIONS.  */
-                switch (position) //  the default value of position is 1 so while the 1st comma is not encountered the value will keep stacking on the csv_id string
-                {
-                case 1:
-                    csv_id += all[i];
-                    break;
-                case 2:
-                    csv_name += all[i];
-                    break;
-                case 3:
-                    csv_fname += all[i];
-                    break;
-                case 4:
-                    csv_address += all[i];
-                    break;
-                case 5:
-                    csv_pin += all[i];
-                    break;
-                case 6:
-                    csv_pass += all[i];
-                    break;
-                case 7:
-                    csv_phone += all[i];
-                    break;
-                case 8:
-                    csv_balance += all[i];
-                    break;
-                case 9:
-
-                    // displays the user fetched record
-                    // cout<< " \n\n\n\t\t Search User Record ";
-                    // cout <<"\n User ID       : "<<csv_id       ;
-                    // cout <<"\n Name          : "<<csv_name     ;
-                    // cout <<"\n Father's Name : "<<csv_fname    ;
-                    // cout <<"\n Address       : "<<csv_address   ;
-                    // cout <<"\n PIN           : "<<csv_pin      ;
-                    // cout <<"\n Password      : "<<csv_pass     ;
-                    // cout <<"\n Phone         : "<<csv_phone    ;
-                    // cout <<"\n Balance       : "<<csv_balance  ;
-
-                    break;
-                default:
-                    cout << "Default Printed : Case :: " << position; // IF SOMETHING ERROR HAPPENS.....
-                    break;
-                }
-                if (position == 9) // this checks if all the data are fetched and  stored into the right variable.
-                {
-                    if (test_id == csv_id)
-                    {
-                        create_new_amount:
-                            cout << "Amount For Withdraw  : ";
-                            // cin >> amount;
-                            getline(cin,amount);
-                            if (is_comma_present_in_input_string(amount))
-                            {
-                                goto create_new_amount;
-                            }
-                            if (is_space_present(amount))
-                            {
-                                cout << "Invalid Input \t ||  Enter \" OPENING amount\"   without spaces \n ";
-                                goto create_new_amount;
-                            }
-
-                            if (!is_input_all_number(amount))
-                            {
-                                cout << "amount can't contain characters !! \n\t Enter amount again ... \n";
-                                goto create_new_amount;
-                            }
-
-                            if (amount.length() > 12)
-                            {
-                                cout << "Invalid Input \t ||  Enter  \"PHONE NO. \"  less than trillion ( 12 digits)  \n ";
-                                goto create_new_amount;
-                            }
-                        if (stoi(amount) < stoi(csv_balance)) // checks if the proper amt is present
-                        {
-                         
-
-                                  // adding strings as integer
-                              csv_balance =  to_string(stoi(csv_balance) - stoi(amount)) ;
-                              // csv_balance += amount; // updated amount
-      
-                              temp_file << csv_id << "," << csv_name << "," << csv_fname << "," << csv_address << "," << csv_pin << "," << csv_pass << "," << csv_phone << "," << csv_balance << ","<< "\n";
-                              cout << " Amount Rs." << amount << "|- Withdraw Successful!!";
-                        }
-                        else
-                        {
-                            cout << "ERROR !!!!! Insufficient Balance !";
-                            temp_file << csv_id << "," << csv_name << "," << csv_fname << "," << csv_address << "," << csv_pin << "," << csv_pass << "," << csv_phone << "," << csv_balance << ","<<"\n";
-                        }
-                        found++;
-                    }
-                    else
-                    {
-                        temp_file << csv_id << "," << csv_name << "," << csv_fname << "," << csv_address << "," << csv_pin << "," << csv_pass << "," << csv_phone << "," << csv_balance << ","<<"\n";
-
-                    }
-                }
-            }
-            file >> all;
-        }
-        file.close();
-        temp_file.close();
-        // getch();
-        remove("bank.csv");
-        rename("temp_bank.csv", "bank.csv");
-        if (found == 0)
-        {
-            cout << "\n\n User ID Can't Found...";
-        }
-    }
-}
 
 string convert_space_to_line(string input_string)
 {
