@@ -16,7 +16,7 @@ public:
     void new_user();
     void already_user(); // if the Existing user asks for the id and password
     void deposit();
-    void withdraw() {}
+    void withdraw();
     void transfer() {}
     void payment() {}
     void search();
@@ -45,7 +45,8 @@ int main()
 
     bank obj1;
     // obj1.new_user();
-    obj1.deposit();
+    // obj1.deposit();
+    obj1.withdraw();
     // obj1.deposit();
 }
 
@@ -801,8 +802,6 @@ void bank::withdraw()
                             }
                         if (stoi(amount) < stoi(csv_balance)) // checks if the proper amt is present
                         {
-                         
-
                                   // adding strings as integer
                               csv_balance =  to_string(stoi(csv_balance) - stoi(amount)) ;
                               // csv_balance += amount; // updated amount
@@ -835,6 +834,74 @@ void bank::withdraw()
         {
             cout << "\n\n User ID Can't Found...";
         }
+    }
+}
+
+void bank::transfer()
+{
+   
+    fstream file,temp_file;
+    system("cls");
+    string sender_id,receiver_id;
+    int found = 0,sender_found= 0,receiver_found= 0;
+    float transfer_amount;
+    cout<<"\n\n\n\t\t\t Payment Transfer Option";
+    file.open("bank.txt",ios::in);
+    if(!file)
+    {
+        cout<<"\n\n\n\t\t File Opening Error !!!";
+    }
+    else
+    {
+        cout<< "\n\n Sender User ID   : ";          /// TRY TO UTILIZE THE DEPOSIT AND WITHDRAWL FUNCTIONS MAKES MORE COMPLEX
+        cin>>sender_id;
+        cout<< "\n\n Receiver User ID : ";
+        cin>>receiver_id;
+        cout<< "\n\n Transfer Amount  : ";
+        cin>>transfer_amount;        /// OPENING THE FILE AS READING MODE  12 lines above//////////////////////////////////////////////////////////
+        file>>id>>name>>fname>>address>>pin>>pass>>phone>>balance;  
+        while (!file.eof()) // Checking if both sender and receiver exists or not and if the sender has the sufficient balance or not 
+        { /*if(sender_id == id && transfer_amount > balance){ cout << "Insufficient Balnce In Sender's Account"; getch(); goto beginning;}*/
+            if(sender_id == id && transfer_amount <= balance )
+             found++,sender_found++;
+            else if(receiver_id == id)
+             found++,receiver_found++; 
+        file>>id>>name>>fname>>address>>pin>>pass>>phone>>balance;  
+        }
+        file.close();
+        if (found == 2 )   //if(found == 2 )
+        {
+            file.open("bank.txt",ios::in);
+            temp_file.open("temp_bank.txt",ios::app|ios::out);
+            file>>id>>name>>fname>>address>>pin>>pass>>phone>>balance;  
+            while(!file.eof())
+            {
+            if (sender_id == id )
+            {
+                balance -= transfer_amount;
+                temp_file<<" "<<id<<" "<<name<<" "<<fname<<" "<<address<<" "<<pin<<" "<<pass<<" "<<phone<<" "<<balance<<"\n";
+            }
+            else if ( receiver_id == id)
+            {
+                balance += transfer_amount;
+                temp_file<<" "<<id<<" "<<name<<" "<<fname<<" "<<address<<" "<<pin<<" "<<pass<<" "<<phone<<" "<<balance<<"\n";
+            }
+            else
+            {
+                temp_file<<" "<<id<<" "<<name<<" "<<fname<<" "<<address<<" "<<pin<<" "<<pass<<" "<<phone<<" "<<balance<<"\n";
+            }
+            file>>id>>name>>fname>>address>>pin>>pass>>phone>>balance;  
+            }  
+            file.close();
+            temp_file.close();
+            remove("bank.txt");
+            rename("temp_bank.txt","bank.txt");
+             cout << "\n\n\n Transaction Successful!!"; getch();
+        }
+        else if(found == 0){cout << "Sender and Receiver ID Invalid!!!";getch();}
+        if(found == 1 ) {
+                            if (sender_found = 1){cout<< " Sender ID Invalid!!";}if (receiver_found = 1){cout<< " Receiver ID Invalid!!";}
+                        }
     }
 }
 
