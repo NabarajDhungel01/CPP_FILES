@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <fstream>
 #include <windows.h>
+#include <sstream> // for using stringstream
 using namespace std;
 class bank
 {
@@ -34,6 +35,9 @@ int is_space_present(string input_string);
 // int is_length_correct(string input_string, int correct_length); // provide string to check if the correct number of length of string is entered.
 int is_input_all_number(string input_string); // checks if all the input is the number
 int is_comma_present_in_input_string(string input_string);
+string  Add_two_Strings(string a, string b);
+string Subtract_two_Strings(string a, string b);
+
 
 int main()
 {
@@ -611,17 +615,6 @@ void bank::deposit()
                     break;
                 case 9:
 
-                    // displays the user fetched record
-                    // cout<< " \n\n\n\t\t Search User Record ";
-                    // cout <<"\n User ID       : "<<csv_id       ;
-                    // cout <<"\n Name          : "<<csv_name     ;
-                    // cout <<"\n Father's Name : "<<csv_fname    ;
-                    // cout <<"\n Address       : "<<csv_address   ;
-                    // cout <<"\n PIN           : "<<csv_pin      ;
-                    // cout <<"\n Password      : "<<csv_pass     ;
-                    // cout <<"\n Phone         : "<<csv_phone    ;
-                    // cout <<"\n Balance       : "<<csv_balance  ;
-
                     break;
                 default:
                     cout << "Default Printed : Case :: " << position; // IF SOMETHING ERROR HAPPENS.....
@@ -756,17 +749,6 @@ void bank::withdraw()
                     break;
                 case 9:
 
-                    // displays the user fetched record
-                    // cout<< " \n\n\n\t\t Search User Record ";
-                    // cout <<"\n User ID       : "<<csv_id       ;
-                    // cout <<"\n Name          : "<<csv_name     ;
-                    // cout <<"\n Father's Name : "<<csv_fname    ;
-                    // cout <<"\n Address       : "<<csv_address   ;
-                    // cout <<"\n PIN           : "<<csv_pin      ;
-                    // cout <<"\n Password      : "<<csv_pass     ;
-                    // cout <<"\n Phone         : "<<csv_phone    ;
-                    // cout <<"\n Balance       : "<<csv_balance  ;
-
                     break;
                 default:
                     cout << "Default Printed : Case :: " << position; // IF SOMETHING ERROR HAPPENS.....
@@ -857,12 +839,36 @@ void bank::transfer()
     }
     else
     {
+         create_new_transfer_amount:
+        cout << "\n\n Transfer Amount  : ";
+        getline(cin, transfer_amount);
+        if (is_comma_present_in_input_string(transfer_amount))
+        {
+            goto create_new_transfer_amount;
+        }
+        if (is_space_present(transfer_amount))
+        {
+            cout << "Invalid Input \t ||  Enter \" OPENING transfer_amount\"   without spaces \n ";
+            goto create_new_transfer_amount;
+        }
+
+        if (!is_input_all_number(transfer_amount))
+        {
+            cout << "transfer_amount can't contain characters !! \n\t Enter transfer_amount again ... \n";
+            goto create_new_transfer_amount;
+        }
+
+        if (transfer_amount.length() > 12)
+        {
+            cout << "Invalid Input \t ||  Enter  \"PHONE NO. \"  less than trillion ( 12 digits)  \n ";
+            goto create_new_transfer_amount;
+        }
+
         cout << "\n\n Sender User ID   : "; /// TRY TO UTILIZE THE DEPOSIT AND WITHDRAWL FUNCTIONS MAKES MORE COMPLEX
         cin >> sender_id;
         cout << "\n\n Receiver User ID : ";
         cin >> receiver_id;
-        cout << "\n\n Transfer Amount  : ";
-        cin >> transfer_amount; /// OPENING THE FILE AS READING MODE  12 lines above//////////////////////////////////////////////////////////
+       
 
         file >> all;
         file >> all;
@@ -914,17 +920,6 @@ void bank::transfer()
                     break;
                 case 9:
 
-                    // displays the user fetched record
-                    // cout<< " \n\n\n\t\t Search User Record ";
-                    // cout <<"\n User ID       : "<<csv_id       ;
-                    // cout <<"\n Name          : "<<csv_name     ;
-                    // cout <<"\n Father's Name : "<<csv_fname    ;
-                    // cout <<"\n Address       : "<<csv_address   ;
-                    // cout <<"\n PIN           : "<<csv_pin      ;
-                    // cout <<"\n Password      : "<<csv_pass     ;
-                    // cout <<"\n Phone         : "<<csv_phone    ;
-                    // cout <<"\n Balance       : "<<csv_balance  ;
-
                     break;
                 default:
                     cout << "Default Printed : Case :: " << position; // IF SOMETHING ERROR HAPPENS.....
@@ -932,11 +927,10 @@ void bank::transfer()
                 }
                 if (position == 9)
                 {
-                    if (sender_id == id && transfer_amount <= balance)
+                    if (sender_id == csv_id && transfer_amount <= csv_balance)
                         found++, sender_found++;
-                    else if (receiver_id == id)
+                    else if (receiver_id == csv_id)
                         found++, receiver_found++;
-                    file >> id >> name >> fname >> address >> pin >> pass >> phone >> balance;
                 }
             }
             file >> all;
@@ -995,37 +989,34 @@ void bank::transfer()
                         break;
                     case 9:
 
-                        // displays the user fetched record
-                        // cout<< " \n\n\n\t\t Search User Record ";
-                        // cout <<"\n User ID       : "<<csv_id       ;
-                        // cout <<"\n Name          : "<<csv_name     ;
-                        // cout <<"\n Father's Name : "<<csv_fname    ;
-                        // cout <<"\n Address       : "<<csv_address   ;
-                        // cout <<"\n PIN           : "<<csv_pin      ;
-                        // cout <<"\n Password      : "<<csv_pass     ;
-                        // cout <<"\n Phone         : "<<csv_phone    ;
-                        // cout <<"\n Balance       : "<<csv_balance  ;
 
                         break;
                     default:
                         cout << "Default Printed : Case :: " << position; // IF SOMETHING ERROR HAPPENS.....
-                        break;
+                        break;  
                     }
                     if (position == 9)
                     {
-                        if (sender_id == id)
-                        {
-                            csv_balance = to_string(stoi(csv_balance) - stoi(transfer_amount));
-                            temp_file << csv_id << "," << csv_name << "," << csv_fname << "," << csv_address << "," << csv_pin << "," << csv_pass << "," << csv_phone << "," << csv_balance << "," << "\n";
+                        if (sender_id == csv_id)
+                        { /*  cout << "line 1012";                */
+                            // csv_balance = to_string(stoi(csv_balance) - stoi(transfer_amount));
+                            // csv_balance = to_string(stoi(csv_balance) - stoi(transfer_amount));
+                            csv_balance = Subtract_two_Strings(csv_balance,transfer_amount);
+                            temp_file << csv_id << "," << csv_name << "," << csv_fname << "," << csv_address << "," << csv_pin << "," << csv_pass << "," << csv_phone << "," << csv_balance << ","
+                                      << "\n";
                         }
-                        else if (receiver_id == id)
-                        {
-                            csv_balance = to_string(stoi(csv_balance) + stoi(transfer_amount));
-                           temp_file << csv_id << "," << csv_name << "," << csv_fname << "," << csv_address << "," << csv_pin << "," << csv_pass << "," << csv_phone << "," << csv_balance << "," << "\n";
+                        else if (receiver_id == csv_id)
+                        { /* cout << "line 1017";     */
+                            // csv_balance = to_string(stoi(csv_balance) + stoi(transfer_amount));
+                            // csv_balance = to_string(stoi(transfer_amount) + stoi(csv_balance));
+                            csv_balance = Add_two_Strings(csv_balance,transfer_amount);
+                            temp_file << csv_id << "," << csv_name << "," << csv_fname << "," << csv_address << "," << csv_pin << "," << csv_pass << "," << csv_phone << "," << csv_balance << ","
+                                      << "\n";
                         }
                         else
-                        {
-                           temp_file << csv_id << "," << csv_name << "," << csv_fname << "," << csv_address << "," << csv_pin << "," << csv_pass << "," << csv_phone << "," << csv_balance << "," << "\n";
+                        { /* cout << "line 10122"; */
+                            temp_file << csv_id << "," << csv_name << "," << csv_fname << "," << csv_address << "," << csv_pin << "," << csv_pass << "," << csv_phone << "," << csv_balance << ","
+                                      << "\n";
                         }
                     }
                 }
@@ -1185,4 +1176,76 @@ int is_comma_present_in_input_string(string input_string)
         return 1; // if comma found is more than zero than means comma has been found but we cant enter the comma
         // so comma _found
     }
+}
+
+string Add_two_Strings(string a, string b) // for receivers id 
+{
+    // cout << a << "  " << b;
+
+
+    stringstream ss;
+    stringstream geek(a);
+    int x = 0;
+    geek >> x;
+    // cout << "Value of x : " << x;
+
+
+    //
+
+    stringstream geek2(b);
+    int x2 = 0;
+    geek2 >> x2;
+    // cout << "Value of x2 : " << x2;
+
+    int total_plus;
+    // int total_minus;
+    total_plus = x+x2;
+
+    // cout
+        // << " TOtal Plus : " << total_plus;
+    // cout << " TOtal minus : " << total_minus ;
+    // _2_int_to_string(x ,XX);
+    return to_string(total_plus);
+}
+
+string Subtract_two_Strings(string a, string b) // for sender
+{
+    // cout << a << "  " << b;
+
+    stringstream ss;
+    stringstream geek(a);
+    int x = 0;
+    geek >> x;
+    // cout << "Value of x : " << x;
+
+
+    //
+
+    stringstream geek2(b);
+    int x2 = 0;
+    geek2 >> x2;
+    // cout << "Value of x2 : " << x2;
+
+    // int total_plus;
+    int total_minus;
+    // total_plus = x2 + x;
+
+    // FOR EXTRA SECURITY AND ERROR HANDLING
+    // FOR EXTRA SECURITY AND ERROR HANDLING
+    // FOR EXTRA SECURITY AND ERROR HANDLING
+
+    if (x2 > x ) // this means if the transfer amount is greater than the balance 
+    {
+        cout << " \n\n Insufficient Balance \n\n  ";
+        total_minus = x; // if there is insufficient blc the original value will be returned as it is 
+    }
+    else
+    {total_minus = x - x2 ;}
+    // total_minus =  x - x2;
+
+    // cout
+        // << " TOtal Minus: " << total_minus;
+    // cout << " TOtal minus : " << total_minus ;
+    // _2_int_to_string(x ,XX);
+    return to_string(total_minus);
 }
