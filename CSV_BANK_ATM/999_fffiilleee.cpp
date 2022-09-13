@@ -41,6 +41,7 @@ int convert_string_to_int(string a);
 
 int main()
 {
+    fflush(stdin);
     // fstream file;
     // file.open("bank.csv",ios::app|ios::out);
     // cout << "Hello Test";
@@ -62,6 +63,7 @@ int main()
 
 void bank::menu()
 {
+    fflush(stdin);
 p:
     system("cls");
     int choice;
@@ -117,6 +119,8 @@ p:
 
 void bank::bank_management()
 {
+    fflush(stdin);
+
 p: // goto loop
     int choice;
     system("cls");
@@ -181,6 +185,8 @@ p: // goto loop
 
 void bank::atm_management()
 {
+    fflush(stdin);
+
     p:
     system("cls");
     int choice;
@@ -215,9 +221,11 @@ void bank::atm_management()
 
 void bank::new_user()
 {
+    fflush(stdin);
     int repeat = 0;
 starting_of_new_user:
     system("cls");
+    fflush(stdin);
     if (repeat > 0) // if the users want to add the id that is already taken
     {
         cout << "\n\n Enter Details AGAIN !!!";
@@ -494,6 +502,7 @@ starting_of_new_user:
 
 void bank::search()
 {
+    fflush(stdin);
     string all;
     system("cls");
     fstream file;
@@ -587,6 +596,7 @@ void bank::search()
                     cout << "\n Balance       : " << convert_line_to_space(csv_balance);
                     cout << "\n PIN           : " << convert_line_to_space(csv_pin);
                     cout << "\n Password      : " << convert_line_to_space(csv_pass);
+                    found ++;
                 }
             }
 
@@ -604,6 +614,7 @@ void bank::search()
 
 void bank::already_user() // if the Existing user asks for the id and password
 {
+    fflush(stdin);
     system("cls");
     string all;
     fstream file;
@@ -703,6 +714,7 @@ void bank::already_user() // if the Existing user asks for the id and password
 
 void bank::deposit()
 {
+    fflush(stdin);
     string all;
     fstream file, temp_file;
     string test_id;
@@ -838,6 +850,7 @@ void bank::deposit()
 
 void bank::withdraw()
 {
+    fflush(stdin);
     string all;
     fstream file, temp_file;
     string test_id;
@@ -979,7 +992,7 @@ void bank::withdraw()
 
 void bank::transfer()
 {
-
+    fflush(stdin);
     fstream file, temp_file;
     system("cls");
     string sender_id, receiver_id;
@@ -1229,6 +1242,7 @@ void bank::transfer()
 
 void bank::payment()
 {
+    fflush(stdin);
     system("cls");
     fstream file, temp_file, bill_file;
     int found = 0, insufficient_balance = 0;
@@ -1361,7 +1375,7 @@ create_new_billname:
     }
     else if (found == 0 && insufficient_balance == 0)
     {
-        cout << " \n\n User ID Invalid !!!";
+        cout << " \n\n User ID Invalid OR Insufficient Balance !!!";
     }
     else if (insufficient_balance == 1)
     {
@@ -1371,6 +1385,7 @@ create_new_billname:
 
 void bank::edit()
 {
+    fflush(stdin);
     {
         system("cls");
         string all;
@@ -1580,6 +1595,12 @@ void bank::edit()
         }
     }
 }
+
+
+
+
+
+
 
 string convert_space_to_line(string input_string)
 {
