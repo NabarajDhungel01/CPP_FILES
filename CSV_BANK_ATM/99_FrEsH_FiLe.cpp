@@ -218,6 +218,7 @@ void bank::new_user()
     int repeat = 0;
 starting_of_new_user:
     system("cls");
+    fflush(stdin);
     if (repeat > 0) // if the users want to add the id that is already taken
     {
         cout << "\n\n Enter Details AGAIN !!!";
