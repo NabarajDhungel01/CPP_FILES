@@ -28,7 +28,7 @@ public:
     void withdraw_atm();
     void atm_chek_details();
 };
-void intrdoduction()
+void introduction()
 {   //1st page
     cout << "\n\n\n\n\n\t";
     for (int i = 0; i < 60; i++)
@@ -574,7 +574,7 @@ void bank::search()
         {  cout << "\n\n User ID Can't Found...";  }        
     }   
 }
- void bank::edit()
+ void bank::edit()    
  {
     system("cls");
     fstream file,temp_file;
@@ -791,6 +791,6 @@ void bank::user_balance()
 main()
 {   
     bank obj; 
-    // intrdoduction();
+    // introduction();
     obj.menu();
 }
