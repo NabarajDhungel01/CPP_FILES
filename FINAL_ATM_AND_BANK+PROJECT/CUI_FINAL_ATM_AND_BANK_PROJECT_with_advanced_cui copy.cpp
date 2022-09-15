@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdio.h>  // for some C functions
 #include <conio.h>
 #include <stdio.h>
 #include <fstream>
@@ -38,6 +39,10 @@ int is_comma_present_in_input_string(string input_string);
 string Add_two_Strings(string a, string b);
 string Subtract_two_Strings(string a, string b);
 int convert_string_to_int(string a);
+void login_screen();                     // function for login screen before accessing to the actual bank and atm management system
+void introduction();                    // INTRODUCITON OF THE DEVELOPER AND .......
+
+
 
 int main()
 {
@@ -724,6 +729,11 @@ void bank::already_user() // if the Existing user asks for the id and password
 
             file >> all;
         }
+    } 
+
+    if (found == 0)
+    {
+        cout << "\n\n User ID Can't Found...";
     }
 }
 
@@ -2029,7 +2039,7 @@ void bank::atm_check_details()
     fflush(stdin);
 
     // FOR LOGIN
-    // if user successful then , do this 
+    // if user successful then , do this
     if (user_balance() == 1)
     {
         search(); // to search
@@ -2039,7 +2049,7 @@ void bank::atm_check_details()
 void bank::withdraw_atm()
 {
     // FOR LOGIN
-    // if user successful then , do this 
+    // if user successful then , do this
     if (user_balance() == 1)
     {
         withdraw(); // to search
@@ -2254,4 +2264,134 @@ int convert_string_to_int(string a)
     int x = 0;
     geek >> x;
     return x;
+}
+
+
+void login_screen() // Making Login Function
+{
+    int i = 0;
+    int a = 0;         // we are declaring this variable so that we can check if the login details is incorrect more than 2 times, it will exit
+    char c = ' ';      // for displaying as asterik
+    char username[20]; // for taking input of username
+    char password[20]; // to store the password
+    do
+    {
+        cout <<"\n";
+        cout <<"\n ================  LOGIN  ================ \n";
+        cout <<"\n";
+        cout <<"       Username :-  ";
+        scanf("%s", &username);
+        cout <<"\n       Password :-  "; // now asking for password
+        // when we are entering the password, it should be taken as
+        // character and display as asterik  ********
+        // explanation on how the asterik is shown here,
+        while (i < 20)
+        {
+            password[i] = getch(); // storing the value of getch,i.e. when you press some key in the console/keyboard in terminal, the getch will capture it and move forward, when you use getch to take the input, the character you pressed is not shownn in the screen.
+            c = password[i];       //
+            if (c == 13)           // if user inputs the password more than 13 character, it will exit
+                break;             // will exit loop
+            else                   // until the user enters the password less than 13 characers, it will take input and print asterik in output when one character is taken
+                printf("*");       //
+            i++;
+        }
+        password[i] = '\0';
+        // char code = pword;
+        i = 0;
+        // use this to take login details whithout showing asterik             // scanf("%s",&password);
+        if (strcmp(username, "mrnavy") == 0 && strcmp(password, "navy") == 0) // strcmp compares the two strings and if the two strings strcmp(username,"user") username value and "user" are same it returns the value of 0, so after that the login will be successful
+        {
+            system("cls");
+
+            cout <<"!!! LOGIN IS SUCCESSFUl\n\n";
+
+            cout <<"              =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n";
+            cout <<"              ==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==";
+            cout <<"\n              === WELCOME TO NAVY'S BANK AND ATM MANAGEMENT SYSTEM =-=\n";
+            cout <<"              ===-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n";
+            cout <<"              =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
+            cout <<"\t\t\t\n\nPress any key to continue...";
+
+            getch(); // this will hold the output
+            break;   // this will exit the if and else loop and will go to while a<=2 and that will be incorrect too.
+        }
+        else
+        {
+            cout <<"\n";
+            cout <<"\n";
+            system("cls"); // clearing screen and asking for the login details again if the entered is wrong.
+            cout <<"\n SORRY !!! THE CREDENTIALS YOU ENTERED ARE INCORRECT ";
+            cout <<"\n\n Enter the login details again...";
+            a++;
+
+            // this will hold the output
+        }
+    } while (a <= 2);
+
+    if (a > 2)
+    {
+        system("cls"); // clearing screen for showing below action..
+        cout <<"\n You have entered the wrong for more than three times \n You will get exit from this program";
+        getch(); // will hold the screen
+    }
+}
+
+void introduction()
+{   //1st page
+    cout << "\n\n\n\n\n\t";
+    for (int i = 0; i < 60; i++)
+    { cout << "*";}
+    cout << "\n\t  ";
+        for (int i = 0; i < 58; i++)
+    { cout << "*";}
+    cout << "\n\t   ";
+        for (int i = 0; i < 56; i++)
+    { cout << "*";}
+    cout<<"\n\n \t\t\t   Bank & ATM Management System\n\t\t\t\t  Project in C++\n\n\t   ";
+    for (int i = 0; i < 56; i++)
+    { cout << "*";}
+    cout << " \n\t  ";
+    for (int i = 0; i < 58; i++)
+    { cout << "*";}
+    cout << " \n\t ";
+    for (int i = 0; i < 60; i++)
+    { cout << "*";}
+    getch();   //3rd page
+    system("cls");
+    cout << "\n\n\t";
+    for (int i = 0; i < 60; i++)
+    cout <<"*";
+    cout << "\n\t";
+    for (int i = 0; i < 60; i++)
+    cout <<"*";
+    cout <<"\n\t\t    Software Developer Introduction";
+    cout <<"\n\n\t   Name:\t\t\t\tNabaraj Dhungel";
+    cout <<"\n\t   Country:\t\t\t\tNepal";
+    cout <<"\n\t   Facebook:\t\t\t\t@NabarajDhungel01";
+    cout <<"\n\t   Instagram:\t\t\t\t@NabarajDhungel01";
+    cout <<"\n\t   Twitter:\t\t\t\t@mrnavy01";
+    cout <<"\n\t   Contact:\t\t\t\t+977-9808698123";
+
+    cout << "\n\n\t";
+    for (int i = 0; i < 60; i++)
+    cout <<"*";
+    cout << "\n\t";
+    for (int i = 0; i < 60; i++)
+    cout <<"*";
+    getch();//2nd page
+    system("cls");
+    cout << "\n\n\n\n\n\t\t\t";
+    for (int i = 0; i < 30; i++)
+    { cout << "*";}
+    cout << "\n\t\t\t";
+    for (int i = 0; i < 30; i++)
+    { cout << "*";}
+    cout <<"\n\n\t\t\t        Credits to:";
+    cout <<"\n\n\t\t\t 1. CodeWithHarry";
+    cout <<"\n\n\t\t\t 2. Khizar Mehar Technical \n\n\t\t\t";
+    for (int i = 0; i < 30; i++)
+    { cout << "*";}
+    cout << "\n\t\t\t";
+    for (int i = 0; i < 30; i++)
+    { cout << "*";}
 }

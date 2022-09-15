@@ -1,8 +1,9 @@
 #include <iostream>
+#include <stdio.h>  // for some C functions
 #include <conio.h>
 #include <stdio.h>
 #include <fstream>
-#include <windows.h>
+#include <windows.h> // Especially  for STD_OUTPUT_HANDLE 
 #include <sstream> // for using stringstream
 using namespace std;
 class bank
@@ -38,6 +39,20 @@ int is_comma_present_in_input_string(string input_string);
 string Add_two_Strings(string a, string b);
 string Subtract_two_Strings(string a, string b);
 int convert_string_to_int(string a);
+void introduction();                    // INTRODUCITON OF THE DEVELOPER AND .......
+
+// C FUNCTIONS 
+void login_screen();                     // function for login screen before accessing to the actual bank and atm management system
+void gotopositionxy(int x, int y);       // this will place the cursor.
+void cursor(int position);               // this will move the cursor the the positionxy
+void highlight(int position, int count); // this will highlight the thing
+void credits();                          // function to display credits.
+void cursor(int position);               // this will move the cursor the the positionxy
+
+
+COORD coord = {0, 0}; // this is global variable used for the position of cursor // it is included in <windows.h>  header
+
+
 
 int main()
 {
@@ -724,6 +739,11 @@ void bank::already_user() // if the Existing user asks for the id and password
 
             file >> all;
         }
+    } 
+
+    if (found == 0)
+    {
+        cout << "\n\n User ID Can't Found...";
     }
 }
 
@@ -2029,7 +2049,7 @@ void bank::atm_check_details()
     fflush(stdin);
 
     // FOR LOGIN
-    // if user successful then , do this 
+    // if user successful then , do this
     if (user_balance() == 1)
     {
         search(); // to search
@@ -2039,7 +2059,7 @@ void bank::atm_check_details()
 void bank::withdraw_atm()
 {
     // FOR LOGIN
-    // if user successful then , do this 
+    // if user successful then , do this
     if (user_balance() == 1)
     {
         withdraw(); // to search
@@ -2255,3 +2275,340 @@ int convert_string_to_int(string a)
     geek >> x;
     return x;
 }
+
+
+void login_screen() // Making Login Function
+{
+    int i = 0;
+    int a = 0;         // we are declaring this variable so that we can check if the login details is incorrect more than 2 times, it will exit
+    char c = ' ';      // for displaying as asterik
+    char username[20]; // for taking input of username
+    char password[20]; // to store the password
+    do
+    {
+        cout <<"\n";
+        cout <<"\n ================  LOGIN  ================ \n";
+        cout <<"\n";
+        cout <<"       Username :-  ";
+        scanf("%s", &username);
+        cout <<"\n       Password :-  "; // now asking for password
+        // when we are entering the password, it should be taken as
+        // character and display as asterik  ********
+        // explanation on how the asterik is shown here,
+        while (i < 20)
+        {
+            password[i] = getch(); // storing the value of getch,i.e. when you press some key in the console/keyboard in terminal, the getch will capture it and move forward, when you use getch to take the input, the character you pressed is not shownn in the screen.
+            c = password[i];       //
+            if (c == 13)           // if user inputs the password more than 13 character, it will exit
+                break;             // will exit loop
+            else                   // until the user enters the password less than 13 characers, it will take input and print asterik in output when one character is taken
+                printf("*");       //
+            i++;
+        }
+        password[i] = '\0';
+        // char code = pword;
+        i = 0;
+        // use this to take login details whithout showing asterik             // scanf("%s",&password);
+        if (strcmp(username, "mrnavy") == 0 && strcmp(password, "navy") == 0) // strcmp compares the two strings and if the two strings strcmp(username,"user") username value and "user" are same it returns the value of 0, so after that the login will be successful
+        {
+            system("cls");
+
+            cout <<"!!! LOGIN IS SUCCESSFUl\n\n";
+
+            cout <<"              =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n";
+            cout <<"              ==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==";
+            cout <<"\n              === WELCOME TO NAVY'S BANK AND ATM MANAGEMENT SYSTEM =-=\n";
+            cout <<"              ===-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n";
+            cout <<"              =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
+            cout <<"\t\t\t\n\nPress any key to continue...";
+
+            getch(); // this will hold the output
+            break;   // this will exit the if and else loop and will go to while a<=2 and that will be incorrect too.
+        }
+        else
+        {
+            cout <<"\n";
+            cout <<"\n";
+            system("cls"); // clearing screen and asking for the login details again if the entered is wrong.
+            cout <<"\n SORRY !!! THE CREDENTIALS YOU ENTERED ARE INCORRECT ";
+            cout <<"\n\n Enter the login details again...";
+            a++;
+
+            // this will hold the output
+        }
+    } while (a <= 2);
+
+    if (a > 2)
+    {
+        system("cls"); // clearing screen for showing below action..
+        cout <<"\n You have entered the wrong for more than three times \n You will get exit from this program";
+        getch(); // will hold the screen
+    }
+}
+
+void introduction()
+{   //1st page
+    cout << "\n\n\n\n\n\t";
+    for (int i = 0; i < 60; i++)
+    { cout << "*";}
+    cout << "\n\t  ";
+        for (int i = 0; i < 58; i++)
+    { cout << "*";}
+    cout << "\n\t   ";
+        for (int i = 0; i < 56; i++)
+    { cout << "*";}
+    cout<<"\n\n \t\t\t   Bank & ATM Management System\n\t\t\t\t  Project in C++\n\n\t   ";
+    for (int i = 0; i < 56; i++)
+    { cout << "*";}
+    cout << " \n\t  ";
+    for (int i = 0; i < 58; i++)
+    { cout << "*";}
+    cout << " \n\t ";
+    for (int i = 0; i < 60; i++)
+    { cout << "*";}
+    getch();   //3rd page
+    system("cls");
+    cout << "\n\n\t";
+    for (int i = 0; i < 60; i++)
+    cout <<"*";
+    cout << "\n\t";
+    for (int i = 0; i < 60; i++)
+    cout <<"*";
+    cout <<"\n\t\t    Software Developer Introduction";
+    cout <<"\n\n\t   Name:\t\t\t\tNabaraj Dhungel";
+    cout <<"\n\t   Country:\t\t\t\tNepal";
+    cout <<"\n\t   Facebook:\t\t\t\t@NabarajDhungel01";
+    cout <<"\n\t   Instagram:\t\t\t\t@NabarajDhungel01";
+    cout <<"\n\t   Twitter:\t\t\t\t@mrnavy01";
+    cout <<"\n\t   Contact:\t\t\t\t+977-9808698123";
+
+    cout << "\n\n\t";
+    for (int i = 0; i < 60; i++)
+    cout <<"*";
+    cout << "\n\t";
+    for (int i = 0; i < 60; i++)
+    cout <<"*";
+    getch();//2nd page
+    system("cls");
+    cout << "\n\n\n\n\n\t\t\t";
+    for (int i = 0; i < 30; i++)
+    { cout << "*";}
+    cout << "\n\t\t\t";
+    for (int i = 0; i < 30; i++)
+    { cout << "*";}
+    cout <<"\n\n\t\t\t        Credits to:";
+    cout <<"\n\n\t\t\t 1. CodeWithHarry";
+    cout <<"\n\n\t\t\t 2. Khizar Mehar Technical \n\n\t\t\t";
+    for (int i = 0; i < 30; i++)
+    { cout << "*";}
+    cout << "\n\t\t\t";
+    for (int i = 0; i < 30; i++)
+    { cout << "*";}
+}
+
+void window(int a,int b,int c,int d)
+{
+    int i;
+//textcolor(1);
+//textcolor(4);
+    for (i=a; i<=b; i++)
+    {
+        gotopositionxy(i,17);
+        printf("\xcd");
+        gotopositionxy(i,19);
+        printf("\xcd");
+        gotopositionxy(i,c);
+        printf("\xcd");
+        gotopositionxy(i,d);
+        printf("\xcd");
+    }
+
+    gotopositionxy(a,17);
+    printf("\xc9");
+    gotopositionxy(a,18);
+    printf("\xba");
+    gotopositionxy(a,19);
+    printf("\xc8");
+    gotopositionxy(b,17);
+    printf("\xbb");
+    gotopositionxy(b,18);
+    printf("\xba");
+    gotopositionxy(b,19);
+    printf("\xbc");
+//textcolor(4);
+    for(i=c; i<=d; i++)
+    {
+        gotopositionxy(a,i);
+        printf("\xba");
+        gotopositionxy(b,i);
+        printf("\xba");
+    }
+    gotopositionxy(a,c);
+    printf("\xc9");
+    gotopositionxy(a,d);
+    printf("\xc8");
+    gotopositionxy(b,c);
+    printf("\xbb");
+    gotopositionxy(b,d);
+    printf("\xbc");
+//textbackground(11);
+//textcolor(0);
+}
+
+void credits()
+{
+    system("cls");
+    printf("\n\n\n\n\n");
+
+    printf("\t\t\t   @@@@@@    @@@@@@   @@@@@@@@            @@@@@      @@@    @@@@@@@@@@@     @@@      @@@   @@@@    @@@@        \n");
+    printf("\t\t\t   @@@@@@@  @@@@@@@   @@@   @@@           @@@@@@     @@@   @@@@@@@@@@@@@    @@@      @@@    @@@@  @@@@         \n");
+    printf("\t\t\t   @@@  @@@@@@  @@@   @@@    @@@          @@@  @@@   @@@   @@@       @@@    @@@      @@@     @@@@@@@@          \n");
+    printf("\t\t\t   @@@   @@@    @@@   @@@@@@@@@           @@@   @@@  @@@   @@@       @@@    @@@      @@@      @@@@@            \n");
+    printf("\t\t\t   @@@          @@@   @@@@@@@             @@@    @@@ @@@   @@@@@@@@@@@@@     @@@    @@@        @@@             \n");
+    printf("\t\t\t   @@@          @@@   @@@   @@@    @@@    @@@     @@@@@@   @@@       @@@      @@@  @@@         @@@             \n");
+    printf("\t\t\t   @@@          @@@   @@@    @@@   @@@    @@@      @@@@@   @@@       @@@       @@@@@@          @@@             \n");
+
+    printf("\n\n\nDeveloped by : Nabaraj Dhungel a.k.a Mr.Navy\n");
+    printf("E-mail : nabaraj.dhungeel@gmail.com\n");
+    printf("Github : https://github.com/nabarajdhungel01");
+    printf("\n\n\n\n\n");
+    printf("  OKAY \n");
+    printf("Thank You!!\n");
+    printf("\n\n\n\n\n\n\n\n\n");
+    getch();
+    display_menu();
+}
+
+void gotopositionxy(int x, int y)
+{
+    coord.X = x;
+    coord.Y = y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+
+void cursor(int position)
+{
+    int count = 1;
+    char ch = '0';
+    gotopositionxy(30, 22);
+    while (1)
+    {
+        switch (ch)
+        {
+        case 80:
+            count++;
+            if (count == position + 1)
+                count = 1;
+            break;
+
+        case 72:
+            count--;
+            if (count == 0)
+                count = position;
+            break;
+        }
+        highlight(position, count);
+        ch = getch();
+        if (ch == '\r')
+        {
+            if (position == 8)
+            {
+                // YOU CAN SET YOUR FUNCTION WHERE TO JUMP HERE
+                if (count == 1)
+                    calculate_bill();                  // printf("\t\t Calculate Bill HEHE");
+                else if (count == 2) /*add_product()*/ /*printf("add_item")*/
+                    add_product();
+                else if (count == 3)    /*delete_product()*/
+                    delete_product();   // printf("deleteproduct");
+                else if (count == 4)    /*search_product()*/
+                    search_product();   // printf("search_item");
+                else if (count == 5)    /*display_products()*/
+                    display_products(); /*printf ("read_item")*/
+                else if (count == 6)    /*()*/
+                    edit_product();     //  printf("edit_item");   // edit_product();
+                else if (count == 7)
+                    credits() /*del()*/ /*printf("credits")*/;
+                else if (count ==8 )
+                { char check1;
+                        gotopositionxy(33, 33);
+                        printf("Exit (Y/N)\t : ");
+                        check1 = getche();
+                        if ((check1 == 'n' || check1 == 'n'))
+                        {
+                            display_menu();
+                        }
+                         else
+                         exit(0);
+                     /*printf("exit"*/;
+
+                }
+                else
+                exit(0);
+            }
+        }
+    }
+}
+
+void highlight(int position, int count)
+{
+    // THIS FUNCTOIN WILL HIghlight the selected item by cursor
+    if (position == 8)
+    {
+        gotopositionxy(30, 22);
+        printf("   Calculate Bill");
+        gotopositionxy(30, 23);
+        printf("   Add Product ");
+        gotopositionxy(30, 24);
+        printf("   Delete Products      ");
+        gotopositionxy(30, 25);
+        printf("   Search Product     ");
+        gotopositionxy(30, 26);
+        printf("   Display All    ");
+        gotopositionxy(30, 27);
+        printf("   Edit Product         ");
+        gotopositionxy(30, 28);
+        printf("   Credits   ");
+        gotopositionxy(30, 29);
+        printf("   Exit           ");
+
+        switch (count)
+        {
+        case 1:
+            gotopositionxy(30, 22);
+            printf(" - Calculate Bill");
+            break;
+        case 2:
+            gotopositionxy(30, 23);
+            printf(" - Add Product");
+            break;
+        case 3:
+            gotopositionxy(30, 24);
+            printf(" - Delete Products");
+            break;
+        case 4:
+            gotopositionxy(30, 25);
+            printf(" - Search Product");
+            break;
+        case 5:
+            gotopositionxy(30, 26);
+            printf(" - Display All");
+            break;
+        case 6:
+            gotopositionxy(30, 27);
+            printf(" - Edit Product");
+            break;
+        case 7:
+            gotopositionxy(30, 28);
+            printf(" - Credits");
+            break;
+        case 8:
+            gotopositionxy(30, 29);
+            printf(" - Exit");
+            break;
+        }
+    }
+}
+
+
+
+

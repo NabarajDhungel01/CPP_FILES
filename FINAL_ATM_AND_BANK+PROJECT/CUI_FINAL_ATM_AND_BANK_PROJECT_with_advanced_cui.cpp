@@ -1,9 +1,10 @@
 #include <iostream>
+#include <stdio.h> // for some C functions
 #include <conio.h>
 #include <stdio.h>
 #include <fstream>
-#include <windows.h>
-#include <sstream> // for using stringstream
+#include <windows.h> // Especially  for STD_OUTPUT_HANDLE
+#include <sstream>   // for using stringstream
 using namespace std;
 class bank
 {
@@ -38,161 +39,133 @@ int is_comma_present_in_input_string(string input_string);
 string Add_two_Strings(string a, string b);
 string Subtract_two_Strings(string a, string b);
 int convert_string_to_int(string a);
+void introduction(); // INTRODUCITON OF THE DEVELOPER AND .......
+
+// C FUNCTIONS
+void login_screen();                     // function for login screen before accessing to the actual bank and atm management system
+void gotopositionxy(int x, int y);       // this will place the cursor.
+void cursor(int position);               // this will move the cursor the the positionxy
+void highlight(int position, int count); // this will highlight the thing
+void credits();                          // function to display credits.
+void cursor(int position);               // this will move the cursor the the positionxy
+void window(int a, int b, int c, int d);
+
+COORD coord = {0, 0}; // this is global variable used for the position of cursor // it is included in <windows.h>  header
 
 int main()
 {
-    fflush(stdin);
-    // fstream file;
-    // file.open("bank.csv",ios::app|ios::out);
-    // cout << "Hello Test";
-    // file << "Hello Test";
-    // file.close();
 
     bank obj1;
+    // obj1.bank_management();
     obj1.menu();
-    // obj1.new_user();
-    // obj1.deposit();
-    // obj1.withdraw();
-    // obj1.new_user();
-    // obj1.deposit();
-    // obj1.transfer();
-    // obj1.payment();
-    // obj1.edit();
-    // obj1.new_user();
-    obj1.user_balance();
 }
 
 void bank::menu()
 {
-    fflush(stdin);
-p:
-    system("cls");
-    int choice;
-    char ch;
-    string pin, pass, email;
-    cout << "\n\n\n\t\t\tControl Panel";
-    cout << "\n\n 1. Bank  Management";
-    cout << "\n 2. ATM Management";
-    cout << "\n 3. Exit";
-    cout << "\n\n Enter your choice  : ";
-    cin >> choice;
-    while (cin.fail())
+
+    system("cls"); // will clear the screen to show the menu
+
+    window(25, 60, 20, 32);
+    const char *menu[] = {"\tBank Management ", "\tATM Management", "\tCredits", "\tExit"};
+    gotopositionxy(33, 18);
+    printf("CONTROL PANEL");
+    for (int i = 0; i <= 3; i++) // prints the four things
     {
-        cin.clear();
-        cin.ignore();
-    } // if the user enters the character, this will prevent program from crashing.
-    switch (choice)
-    {
-    case 1:
-        // system("cls");
-        // cout << "\n\n \t\t Login Account";
-        // cout << "\n\n E-mail  :";
-        // email;
-        // cout << "\n Pin (5 digit)    :";
-        // for (int i = 1; i <= 5; i++)
-        // {
-        // ch = getch();
-        // pin += ch;
-        // cout << "*";
-        // }
-        // cout << "\n Password (5 digit)    : ";
-        // for (int i = 1; i <= 5; i++)
-        // {
-        // ch = getch();
-        // pass += ch;
-        // cout << "*";
-        // }
-        // if (email == "khizar@gmail.com" && pin == "13366" && pass == "14366")
-        // {
-        // bank_management();
-        // }
-        // else
-        // {
-        // cout << "\n\n Incorrect Credentials !!!";
-        // }
-        bank_management();
-        break;
-    case 2:
-        atm_management();
-        break;
-    case 3:
-        exit(0);
-    default:
-        cout << "Invalid Value.. Please try again";
+        gotopositionxy(30, 22 + i);
+        printf("%s\n\n\n", menu[i]);
     }
+
+    cursor(4); // 7
+    printf("final");
     getch();
-    goto p;
 }
 
 void bank::bank_management()
 {
-    fflush(stdin);
 
-p: // goto loop
-    int choice;
-    system("cls");
-    cout << "\n\n\t\t BANK Management System\n";
-    cout << "\n 1.  New User";
-    cout << "\n 2.  Already User";
-    cout << "\n 3.  Deposit Option";
-    cout << "\n 4.  Withdraw Option.";
-    cout << "\n 5.  Transfer Option.";
-    cout << "\n 6.  Payment Option.";
-    cout << "\n 7.  Search User Record.";
-    cout << "\n 8.  Edit User Record.";
-    cout << "\n 9.  Delete User Records.";
-    cout << "\n 10. Show All Records.";
-    cout << "\n 11. All Payment Rec.";
-    cout << "\n 12. Go Back";
-    cout << "\n\n Enter your Choice  : ";
-    cin >> choice;
-    while (cin.fail())
+    system("cls"); // will clear the screen to show the menu
+
+    window(25, 60, 20, 35);
+    const char *menu[] = {"\tNew User ", "\tAlready User PIN&PW", "\tDeposit Option", "\tWithdraw Option", "\tTransfer Option", "\tPayment Option", "\tSearch User Record", "\tEdit User Record", "\tDelete User Record", "\tShow All Records", "\tAll Payment Records", "\tGo Back"};
+    gotopositionxy(33, 18);
+    printf("BANK MANAGEMENT");
+    for (int i = 0; i <= 11; i++) // prints the four things
     {
-        cin.clear();
-        cin.ignore();
-    } // if the user enters the character, this will prevent program from crashing.
-    switch (choice)
-    {
-    case 1:
-        new_user();
-        break;
-    case 2:
-        already_user();
-        break;
-    case 3:
-        deposit();
-        break;
-    case 4:
-        withdraw();
-        break;
-    case 5:
-        transfer();
-        break;
-    case 6:
-        payment();
-        break;
-    case 7:
-        search();
-        break;
-    case 8:
-        edit();
-        break;
-    case 9:
-        del();
-        break;
-    case 10:
-        show_all_records();
-        break;
-    case 11:
-        show_all_payments();
-        break;
-    case 12:
-        menu();
-    default:
-        cout << "Invalid Choice !!!";
+        gotopositionxy(30, 22 + i);
+        printf("%s\n\n\n", menu[i]);
     }
+
+    cursor(12);
     getch();
-    goto p;
+
+    //     fflush(stdin);
+
+    // p: // goto loop
+    //     int choice;
+    //     system("cls");
+    //     cout << "\n\n\t\t BANK Management System\n";
+    //     cout << "\n 1.  New User";
+    //     cout << "\n 2.  Already User";
+    //     cout << "\n 3.  Deposit Option";
+    //     cout << "\n 4.  Withdraw Option.";
+    //     cout << "\n 5.  Transfer Option.";
+    //     cout << "\n 6.  Payment Option.";
+    //     cout << "\n 7.  Search User Record.";
+    //     cout << "\n 8.  Edit User Record.";
+    //     cout << "\n 9.  Delete User Records.";
+    //     cout << "\n 10. Show All Records.";
+    //     cout << "\n 11. All Payment Rec.";
+    //     cout << "\n 12. Go Back";
+    //     cout << "\n\n Enter your Choice  : ";
+    //     cin >> choice;
+    //     while (cin.fail())
+    //     {
+    //         cin.clear();
+    //         cin.ignore();
+    //     } // if the user enters the character, this will prevent program from crashing.
+    //     switch (choice)
+    //     {
+    //     case 1:
+    //         new_user();
+    //         break;
+    //     case 2:
+    //         already_user();
+    //         break;
+    //     case 3:
+    //         deposit();
+    //         break;
+    //     case 4:
+    //         withdraw();
+    //         break;
+    //     case 5:
+    //         transfer();
+    //         break;
+    //     case 6:
+    //         payment();
+    //         break;
+    //     case 7:
+    //         search();
+    //         break;
+    //     case 8:
+    //         edit();
+    //         break;
+    //     case 9:
+    //         del();
+    //         break;
+    //     case 10:
+    //         show_all_records();
+    //         break;
+    //     case 11:
+    //         show_all_payments();
+    //         break;
+    //     case 12:
+    //         menu();
+    //     default:
+    //         cout << "Invalid Choice !!!";
+    //     }
+    //     getch();
+    //     goto p;
+    // }
 }
 
 void bank::atm_management()
@@ -724,6 +697,11 @@ void bank::already_user() // if the Existing user asks for the id and password
 
             file >> all;
         }
+    }
+
+    if (found == 0)
+    {
+        cout << "\n\n User ID Can't Found...";
     }
 }
 
@@ -2029,7 +2007,7 @@ void bank::atm_check_details()
     fflush(stdin);
 
     // FOR LOGIN
-    // if user successful then , do this 
+    // if user successful then , do this
     if (user_balance() == 1)
     {
         search(); // to search
@@ -2039,7 +2017,7 @@ void bank::atm_check_details()
 void bank::withdraw_atm()
 {
     // FOR LOGIN
-    // if user successful then , do this 
+    // if user successful then , do this
     if (user_balance() == 1)
     {
         withdraw(); // to search
@@ -2254,4 +2232,481 @@ int convert_string_to_int(string a)
     int x = 0;
     geek >> x;
     return x;
+}
+
+void login_screen() // Making Login Function
+{
+    int i = 0;
+    int a = 0;         // we are declaring this variable so that we can check if the login details is incorrect more than 2 times, it will exit
+    char c = ' ';      // for displaying as asterik
+    char username[20]; // for taking input of username
+    char password[20]; // to store the password
+    do
+    {
+        cout << "\n";
+        cout << "\n ================  LOGIN  ================ \n";
+        cout << "\n";
+        cout << "       Username :-  ";
+        scanf("%s", &username);
+        cout << "\n       Password :-  "; // now asking for password
+        // when we are entering the password, it should be taken as
+        // character and display as asterik  ********
+        // explanation on how the asterik is shown here,
+        while (i < 20)
+        {
+            password[i] = getch(); // storing the value of getch,i.e. when you press some key in the console/keyboard in terminal, the getch will capture it and move forward, when you use getch to take the input, the character you pressed is not shownn in the screen.
+            c = password[i];       //
+            if (c == 13)           // if user inputs the password more than 13 character, it will exit
+                break;             // will exit loop
+            else                   // until the user enters the password less than 13 characers, it will take input and print asterik in output when one character is taken
+                printf("*");       //
+            i++;
+        }
+        password[i] = '\0';
+        // char code = pword;
+        i = 0;
+        // use this to take login details whithout showing asterik             // scanf("%s",&password);
+        if (strcmp(username, "mrnavy") == 0 && strcmp(password, "navy") == 0) // strcmp compares the two strings and if the two strings strcmp(username,"user") username value and "user" are same it returns the value of 0, so after that the login will be successful
+        {
+            system("cls");
+
+            cout << "!!! LOGIN IS SUCCESSFUl\n\n";
+
+            cout << "              =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n";
+            cout << "              ==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==";
+            cout << "\n              === WELCOME TO NAVY'S BANK AND ATM MANAGEMENT SYSTEM =-=\n";
+            cout << "              ===-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n";
+            cout << "              =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
+            cout << "\t\t\t\n\nPress any key to continue...";
+
+            getch(); // this will hold the output
+            break;   // this will exit the if and else loop and will go to while a<=2 and that will be incorrect too.
+        }
+        else
+        {
+            cout << "\n";
+            cout << "\n";
+            system("cls"); // clearing screen and asking for the login details again if the entered is wrong.
+            cout << "\n SORRY !!! THE CREDENTIALS YOU ENTERED ARE INCORRECT ";
+            cout << "\n\n Enter the login details again...";
+            a++;
+
+            // this will hold the output
+        }
+    } while (a <= 2);
+
+    if (a > 2)
+    {
+        system("cls"); // clearing screen for showing below action..
+        cout << "\n You have entered the wrong for more than three times \n You will get exit from this program";
+        getch(); // will hold the screen
+    }
+}
+
+void introduction()
+{ // 1st page
+    cout << "\n\n\n\n\n\t";
+    for (int i = 0; i < 60; i++)
+    {
+        cout << "*";
+    }
+    cout << "\n\t  ";
+    for (int i = 0; i < 58; i++)
+    {
+        cout << "*";
+    }
+    cout << "\n\t   ";
+    for (int i = 0; i < 56; i++)
+    {
+        cout << "*";
+    }
+    cout << "\n\n \t\t\t   Bank & ATM Management System\n\t\t\t\t  Project in C++\n\n\t   ";
+    for (int i = 0; i < 56; i++)
+    {
+        cout << "*";
+    }
+    cout << " \n\t  ";
+    for (int i = 0; i < 58; i++)
+    {
+        cout << "*";
+    }
+    cout << " \n\t ";
+    for (int i = 0; i < 60; i++)
+    {
+        cout << "*";
+    }
+    getch(); // 3rd page
+    system("cls");
+    cout << "\n\n\t";
+    for (int i = 0; i < 60; i++)
+        cout << "*";
+    cout << "\n\t";
+    for (int i = 0; i < 60; i++)
+        cout << "*";
+    cout << "\n\t\t    Software Developer Introduction";
+    cout << "\n\n\t   Name:\t\t\t\tNabaraj Dhungel";
+    cout << "\n\t   Country:\t\t\t\tNepal";
+    cout << "\n\t   Facebook:\t\t\t\t@NabarajDhungel01";
+    cout << "\n\t   Instagram:\t\t\t\t@NabarajDhungel01";
+    cout << "\n\t   Twitter:\t\t\t\t@mrnavy01";
+    cout << "\n\t   Contact:\t\t\t\t+977-9808698123";
+
+    cout << "\n\n\t";
+    for (int i = 0; i < 60; i++)
+        cout << "*";
+    cout << "\n\t";
+    for (int i = 0; i < 60; i++)
+        cout << "*";
+    getch(); // 2nd page
+    system("cls");
+    cout << "\n\n\n\n\n\t\t\t";
+    for (int i = 0; i < 30; i++)
+    {
+        cout << "*";
+    }
+    cout << "\n\t\t\t";
+    for (int i = 0; i < 30; i++)
+    {
+        cout << "*";
+    }
+    cout << "\n\n\t\t\t        Credits to:";
+    cout << "\n\n\t\t\t 1. CodeWithHarry";
+    cout << "\n\n\t\t\t 2. Khizar Mehar Technical \n\n\t\t\t";
+    for (int i = 0; i < 30; i++)
+    {
+        cout << "*";
+    }
+    cout << "\n\t\t\t";
+    for (int i = 0; i < 30; i++)
+    {
+        cout << "*";
+    }
+}
+
+void window(int a, int b, int c, int d)
+{
+    int i;
+    // textcolor(1);
+    // textcolor(4);
+    for (i = a; i <= b; i++)
+    {
+        gotopositionxy(i, 17);
+        printf("\xcd");
+        gotopositionxy(i, 19);
+        printf("\xcd");
+        gotopositionxy(i, c);
+        printf("\xcd");
+        gotopositionxy(i, d);
+        printf("\xcd");
+    }
+
+    gotopositionxy(a, 17);
+    printf("\xc9");
+    gotopositionxy(a, 18);
+    printf("\xba");
+    gotopositionxy(a, 19);
+    printf("\xc8");
+    gotopositionxy(b, 17);
+    printf("\xbb");
+    gotopositionxy(b, 18);
+    printf("\xba");
+    gotopositionxy(b, 19);
+    printf("\xbc");
+    // textcolor(4);
+    for (i = c; i <= d; i++)
+    {
+        gotopositionxy(a, i);
+        printf("\xba");
+        gotopositionxy(b, i);
+        printf("\xba");
+    }
+    gotopositionxy(a, c);
+    printf("\xc9");
+    gotopositionxy(a, d);
+    printf("\xc8");
+    gotopositionxy(b, c);
+    printf("\xbb");
+    gotopositionxy(b, d);
+    printf("\xbc");
+    // textbackground(11);
+    // textcolor(0);
+}
+
+void credits()
+{
+    system("cls");
+    printf("\n\n\n\n\n");
+
+    printf("\t\t\t   @@@@@@    @@@@@@   @@@@@@@@            @@@@@      @@@    @@@@@@@@@@@     @@@      @@@   @@@@    @@@@        \n");
+    printf("\t\t\t   @@@@@@@  @@@@@@@   @@@   @@@           @@@@@@     @@@   @@@@@@@@@@@@@    @@@      @@@    @@@@  @@@@         \n");
+    printf("\t\t\t   @@@  @@@@@@  @@@   @@@    @@@          @@@  @@@   @@@   @@@       @@@    @@@      @@@     @@@@@@@@          \n");
+    printf("\t\t\t   @@@   @@@    @@@   @@@@@@@@@           @@@   @@@  @@@   @@@       @@@    @@@      @@@      @@@@@            \n");
+    printf("\t\t\t   @@@          @@@   @@@@@@@             @@@    @@@ @@@   @@@@@@@@@@@@@     @@@    @@@        @@@             \n");
+    printf("\t\t\t   @@@          @@@   @@@   @@@    @@@    @@@     @@@@@@   @@@       @@@      @@@  @@@         @@@             \n");
+    printf("\t\t\t   @@@          @@@   @@@    @@@   @@@    @@@      @@@@@   @@@       @@@       @@@@@@          @@@             \n");
+
+    printf("\n\n\nDeveloped by : Nabaraj Dhungel a.k.a Mr.Navy\n");
+    printf("E-mail : nabaraj.dhungeel@gmail.com\n");
+    printf("Github : https://github.com/nabarajdhungel01");
+    printf("\n\n\n\n\n");
+    printf("  OKAY \n");
+    printf("Thank You!!\n");
+    printf("\n\n\n\n\n\n\n\n\n");
+    getch();
+    // display_menu();
+}
+
+void gotopositionxy(int x, int y)
+{
+    coord.X = x;
+    coord.Y = y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+
+void cursor(int position)
+{
+    bank obj1;
+    int count = 1;
+    char ch = '0';
+    gotopositionxy(30, 22);
+    while (1)
+    {
+        switch (ch)
+        {
+        case 80:
+            count++;
+            if (count == position + 1)
+                count = 1;
+            break;
+
+        case 72:
+            count--;
+            if (count == 0)
+                count = position;
+            break;
+        }
+        highlight(position, count);
+        ch = getch();
+        if (ch == '\r')
+        {
+            if (position == 4)
+            {
+                // YOU CAN SET YOUR FUNCTION WHERE TO JUMP HERE
+                if (count == 1)
+                {
+                    // LOGIN SYSTEM
+                    // LOGIN SYSTEM
+                    // LOGIN SYSTEM
+                    // LOGIN SYSTEM
+                    // system("cls");
+                    //         // cout << "\n\n \t\t Login Account";
+                    //         // cout << "\n\n E-mail  :";
+                    //         // email;
+                    //         // cout << "\n Pin (5 digit)    :";
+                    //         // for (int i = 1; i <= 5; i++)
+                    //         // {
+                    //         // ch = getch();
+                    //         // pin += ch;
+                    //         // cout << "*";
+                    //         // }
+                    //         // cout << "\n Password (5 digit)    : ";
+                    //         // for (int i = 1; i <= 5; i++)
+                    //         // {
+                    //         // ch = getch();
+                    //         // pass += ch;
+                    //         // cout << "*";
+                    //         // }
+                    //         // if (email == "khizar@gmail.com" && pin == "13366" && pass == "14366")
+                    //         // {
+                    //         // bank_management();
+                    //         // }
+                    //         // else
+                    //         // {
+                    //         // cout << "\n\n Incorrect Credentials !!!";
+                    //         // }
+                    obj1.bank_management();
+                }
+                // calculate_bill();                  // printf("\t\t Calculate Bill HEHE");
+                else if (count == 2)
+                {
+                    obj1.atm_management();
+                } /*add_product()*/ /*printf("add_item")*/
+                // add_product();
+                else if (count == 3)
+                {
+                    credits();
+                } /*delete_product()*/
+                // delete_product();   // printf("deleteproduct");
+                else if (count == 4)
+                {
+                    exit(0);
+                } /*search_product()*/
+                else
+                    exit(0);
+            }
+            if (position == 12)
+            {
+                switch (count)
+                {
+                case 1:
+                    obj1.new_user();
+                    break;
+                case 2:
+                    obj1.already_user();
+                    break;
+                case 3:
+                    obj1.deposit();
+                    break;
+                case 4:
+                    obj1.withdraw();
+                    break;
+                case 5:
+                    obj1.transfer();
+                    break;
+                case 6:
+                    obj1.payment();
+                    break;
+                case 7:
+                    obj1.search();
+                    break;
+                case 8:
+                    obj1.edit();
+                    break;
+                case 9:
+                    obj1.del();
+                    break;
+                case 10:
+                    obj1.show_all_records();
+                    break;
+                case 11:
+                    obj1.show_all_payments();
+                    break;
+                case 12:
+                    obj1.menu();
+                default:
+                    cout << "Invalid Choice !!!";
+                }
+            }
+        }
+    }
+}
+
+void highlight(int position, int count)
+{
+    // THIS FUNCTOIN WILL HIghlight the selected item by cursor
+    if (position == 4)
+    {
+        // system("cls");
+        gotopositionxy(30, 22);
+        printf("   Bank Management");
+        gotopositionxy(30, 23);
+        printf("   ATM Management ");
+        gotopositionxy(30, 24);
+        printf("   Credits     ");
+        gotopositionxy(30, 25);
+        printf("   Exit     ");
+
+        switch (count)
+        {
+        case 1:
+            gotopositionxy(30, 22);
+            printf(" - Bank Management");
+            break;
+        case 2:
+            gotopositionxy(30, 23);
+            printf(" - ATM Management");
+            break;
+        case 3:
+            gotopositionxy(30, 24);
+            printf(" - Credits");
+            break;
+        case 4:
+            gotopositionxy(30, 25);
+            printf(" - Exit");
+            break;
+        }
+    }
+    if (position == 12)
+    {
+        system("cls");
+        window(25, 60, 20, 35);
+        gotopositionxy(33, 18);
+        printf("BANK MANAGEMENT");
+
+        gotopositionxy(30, 22);
+        printf("   New User");
+        gotopositionxy(30, 23);
+        printf("   Already User ");
+        gotopositionxy(30, 24);
+        printf("   Deposit Option     ");
+        gotopositionxy(30, 25);
+        printf("   Withdraw Option     ");
+        gotopositionxy(30, 26);
+        printf("   Transfer Option     ");
+        gotopositionxy(30, 27);
+        printf("   Payment Option     ");
+        gotopositionxy(30, 28);
+        printf("   Search User Record");
+        gotopositionxy(30, 29);
+        printf("   Edit User Record");
+        gotopositionxy(30, 30);
+        printf("   Delete User Record");
+        gotopositionxy(30, 31);
+        printf("   Show All Records");
+        gotopositionxy(30, 32);
+        printf("   All Payment Records");
+        gotopositionxy(30, 33);
+        printf("   Go Back");
+
+        switch (count)
+        {
+        case 1:
+            gotopositionxy(30, 22);
+            printf("-  New User");
+            break;
+        case 2:
+            gotopositionxy(30, 23);
+            printf("-  Already User ");
+            break;
+        case 3:
+            gotopositionxy(30, 24);
+            printf("-  Deposit Option     ");
+            break;
+        case 4:
+            gotopositionxy(30, 25);
+            printf("-  Withdraw Option     ");
+            break;
+        case 5:
+            gotopositionxy(30, 26);
+            printf("-  Transfer Option     ");
+            break;
+        case 6:
+            gotopositionxy(30, 27);
+            printf("-  Payment Option     ");
+            break;
+        case 7:
+            gotopositionxy(30, 28);
+            printf("-  Search User Record");
+            break;
+        case 8:
+            gotopositionxy(30, 29);
+            printf("-  Edit User Record");
+            break;
+        case 9:
+            gotopositionxy(30, 30);
+            printf("-  Delete User Record");
+            break;
+        case 10:
+            gotopositionxy(30, 31);
+            printf("-  Show All Records");
+            break;
+        case 11:
+            gotopositionxy(30, 32);
+            printf("-  All Payment Records");
+            break;
+        case 12:
+            gotopositionxy(30, 33);
+            printf("-  Go Back");
+        }
+    }
 }

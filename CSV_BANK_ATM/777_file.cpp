@@ -23,12 +23,13 @@ public:
     void search();
     void edit();
     void del(); // delete user record
-    void show_all_records();
-    void show_all_payments();
-    int user_balance();
-    void withdraw_atm();
-    void atm_check_details();
+    void show_all_records() ;
+    void show_all_payments() ;
+    void user_balance() {}
+    void withdraw_atm() {}
+    void atm_check_details() {}
 };
+void credits();
 string convert_space_to_line(string input_string); // THIS FUNCTION CONVERTS THE SPACES TO UNDERSCORE for error handling and getting the name as NAME CAST and converting to NAME_CAST so that we can write to the file and when we fetch the data from the file space will cause error so,
 string convert_line_to_space(string input_string); // CONVERTS UNDERSCORE TO SPACE // USED WHILE SHOWING OUTPUT
 int is_space_present(string input_string);
@@ -59,7 +60,6 @@ int main()
     // obj1.payment();
     // obj1.edit();
     // obj1.new_user();
-    obj1.user_balance();
 }
 
 void bank::menu()
@@ -74,7 +74,9 @@ p:
     cout << "\n\n 1. Bank  Management";
     cout << "\n 2. ATM Management";
     cout << "\n 3. Exit";
+    cout << "\n 4. Credits";
     cout << "\n\n Enter your choice  : ";
+
     cin >> choice;
     while (cin.fail())
     {
@@ -117,6 +119,8 @@ p:
         break;
     case 3:
         exit(0);
+    case 4 :
+        credits();
     default:
         cout << "Invalid Value.. Please try again";
     }
@@ -140,7 +144,7 @@ p: // goto loop
     cout << "\n 6.  Payment Option.";
     cout << "\n 7.  Search User Record.";
     cout << "\n 8.  Edit User Record.";
-    cout << "\n 9.  Delete User Records.";
+    cout << "\n 9.  Delete Userords Record.";
     cout << "\n 10. Show All Records.";
     cout << "\n 11. All Payment Rec.";
     cout << "\n 12. Go Back";
@@ -1713,7 +1717,7 @@ void bank::del()
                         cout << "\n\t\t\t Delete User Details \n\n";
 
                         char check;
-                        cout << "Delete Record " << test_id << "named" << csv_name << "(Y/N) \t: ";
+                        cout << "Delete Record "<< test_id<<"named"<<csv_name<<"(Y/N) \t: ";
                         check = getche();
                         if (check == 'y' || check == 'Y')
                         {
@@ -1725,8 +1729,8 @@ void bank::del()
                         else
                         {
                             // WRITE THE INFORMATION TO THE FILE IF OHTER THAN Y or y is pressed............
-                            temp_file << csv_id << "," << csv_name << "," << csv_fname << "," << csv_address << "," << csv_pin << "," << csv_pass << "," << csv_phone << "," << csv_balance << ","
-                                      << "\n";
+                                                   temp_file << csv_id << "," << csv_name << "," << csv_fname << "," << csv_address << "," << csv_pin << "," << csv_pass << "," << csv_phone << "," << csv_balance << "," << "\n";
+
                         }
 
                         found++;
@@ -1753,6 +1757,7 @@ void bank::del()
 
 void bank::show_all_records()
 {
+
     fflush(stdin);
     string all;
     system("cls");
@@ -1832,7 +1837,7 @@ void bank::show_all_records()
                     break;
                 }
 
-                if (position == 9) // after each line is finshed
+                if ( position == 9) // after each line is finshed
                 {
 
                     cout << " \n\n----------------------------------------------------------\n";
@@ -1847,6 +1852,7 @@ void bank::show_all_records()
                     cout << "\n Password      : " << convert_line_to_space(csv_pass);
                     cout << " \n\n----------------------------------------------------------\n";
                     cout << "----------------------------------------------------------\n\n";
+
                 }
             }
 
@@ -1859,192 +1865,37 @@ void bank::show_all_records()
 
 void bank::show_all_payments()
 {
-    fflush(stdin);
     system("cls");
-    fstream file;
-    int found = 0;
+    fstream  file;
+    int found =0 ;
     float bill_amount;
     string c_date;
     cout << "\n\n\t\t Show All User's Records";
-    file.open("Bills.txt", ios::in);
-    if (!file)
+    file.open("Bills.txt",ios::in);
+    if(!file)
     {
         cout << "\n\n  File Opening Error!!!";
     }
     else
-    {
-        file >> id >> name >> bill_amount >> c_date;
+    {   
+        file>>id>>name>>bill_amount>>c_date;
         while (!file.eof())
         {
-            cout << "\n User ID       : " << id;
-            cout << "\n Bill Name     : " << name;
-            cout << "\n Bill Amount   : " << bill_amount;
-            cout << "\n Date          : " << c_date;
-            cout << "\n\n ************************************************** \n";
-            cout << " ************************************************** \n\n";
-            file >> id >> name >> bill_amount >> c_date;
-            found++;
+                cout <<"\n User ID       : "<<id       ;
+                cout <<"\n Bill Name     : "<<name     ;
+                cout <<"\n Bill Amount   : "<<bill_amount;
+                cout <<"\n Date          : "<<c_date   ;
+                cout<<"\n\n ************************************************** \n";                cout<<" ************************************************** \n\n";
+                file>>id>>name>>bill_amount>>c_date;
+                found++;
         }
-        file.close();
-        if (found == 0) // file exists but record is empty↓↓↓↓↓↓
-        {
-            cout << "\n\n DataBase is Empty!!";
-        }
-        cout << " \n\n Total " << found << ". Records shown!!";
-    }
+        file.close(); 
+        if (found == 0)      // file exists but record is empty↓↓↓↓↓↓
+        {  cout << "\n\n DataBase is Empty!!";  } cout << " \n\n Total "<<found<<". Records shown!!";
+    }   
 }
 
-int bank::user_balance()
-{
-    fflush(stdin);
-    string all;
-    system("cls");
-    fstream file;
-    string test_id, test_pin, test_pass;
-    char ch;
-    int found = 0;
-    cout << "\n\n\t\t\t User Login ";
-    cout << "\n\n !!!DON'T PRESS ENTER after entering the pin.  ";
-    cout << " The cursor will be automatically shifted to the password";
-    file.open("bank.csv", ios::in);
-    if (!file)
-    {
-        cout << " File Opening Error !!!!";
-    }
-    else
-    {
-        cout << "\n\n User ID : ";
-        cin >> test_id;
-        fflush(stdin);
 
-        cout << "\n\n PIN Code :";
-        for (int i = 1; i <= 4; i++) // checks for the 4 characters
-        {
-            ch = getch();
-            test_pin += ch;
-            cout << "*";
-        }
-        cout << "\n\n Password : ";
-        for (int i = 1; i <= 5; i++) // checks for the 5 characters
-        {
-            ch = getch();
-            test_pass += ch;
-            cout << "*";
-        }
-        file >> all;
-        while (!file.eof())
-        {
-            int position = 1; // we are declaring this variable and setting the value to zero because,
-            string csv_id = "\0", csv_name = "\0", csv_fname = "\0", csv_address = "\0", csv_phone = "\0", csv_balance = "\0", csv_pin = "\0", csv_pass = "\0";
-
-            // storing the comma separated values to the new varibale.. for this we have to iterate through every string while the comma is found and we will incrase the position variable and comma found variable accordingly and
-            // until the comma found is 0, we will store the characters to the ID variable and so on..
-            for (int i = 0; i < all.length(); i++)
-            {
-
-                if (all[i] == ',')
-                {
-                    {
-                        // cout <<  all[i]; // prints comma
-                        i++;
-                        // comma_found++;
-                        position++; // after one comma is found the position is increased by 1.
-                    }
-                }
-                /* THE STRIGS VALUE WILL BE ADDED TO THE RESPECTIVE POSITIONS.  */
-                switch (position) //  the default value of position is 1 so while the 1st comma is not encountered the value will keep stacking on the csv_id string
-                {
-                case 1:
-                    csv_id += all[i];
-                    break;
-                case 2:
-                    csv_name += all[i];
-                    break;
-                case 3:
-                    csv_fname += all[i];
-                    break;
-                case 4:
-                    csv_address += all[i];
-                    break;
-                case 5:
-                    csv_pin += all[i];
-                    break;
-                case 6:
-                    csv_pass += all[i];
-                    break;
-                case 7:
-                    csv_phone += all[i];
-                    break;
-                case 8:
-                    csv_balance += all[i];
-                    break;
-                case 9: // displays the user fetched record
-                        // cout<< " \n\n\n\t\t Search User Record ";
-                        // cout <<"\n User ID       : "<<csv_id       ;
-                        // cout <<"\n Name          : "<<csv_name     ;
-                        // cout <<"\n Father's Name : "<<csv_fname    ;
-                        // cout <<"\n Address       : "<<csv_address   ;
-                        // cout <<"\n PIN           : "<<csv_pin      ;
-                        // cout <<"\n Password      : "<<csv_pass     ;
-                        // cout <<"\n Phone         : "<<csv_phone    ;
-                        // cout <<"\n Balance       : "<<csv_balance  ;
-
-                    break;
-                default:
-                    cout << "Default Printed : Case :: " << position; // IF SOMETHING ERROR HAPPENS.....
-                    break;
-                }
-
-                if (position == 9)
-                {
-                    if (test_id == csv_id && test_pin == csv_pin && test_pass == csv_pass)
-                    {
-                        // IF LOGIN SUCCESSFUL RETURN 1, ELSE RETURN 0;
-
-                        cout << " LOGIN SUCCESSFUL!! \n\n";
-                        cout << " \n\n\t\t Your Current Balance is " << csv_balance;
-                        found++;
-                        getch();
-                    }
-                }
-            }
-            file >> all;
-        }
-        file.close();
-        if (found == 0)
-        {
-            cout << "\n\n\t\t User ID, PIN & Password Invalid !!!";
-            return 0;
-        }
-
-        if (found == 1)
-        {
-            return 1;
-        }
-    }
-}
-
-void bank::atm_check_details()
-{
-    fflush(stdin);
-
-    // FOR LOGIN
-    // if user successful then , do this 
-    if (user_balance() == 1)
-    {
-        search(); // to search
-    }
-}
-
-void bank::withdraw_atm()
-{
-    // FOR LOGIN
-    // if user successful then , do this 
-    if (user_balance() == 1)
-    {
-        withdraw(); // to search
-    }
-}
 
 string convert_space_to_line(string input_string)
 {
@@ -2254,4 +2105,32 @@ int convert_string_to_int(string a)
     int x = 0;
     geek >> x;
     return x;
+}
+
+
+void credits()
+{
+    system("cls");
+    cout <<"\n\n\n\n\n";
+
+    cout <<"\t\t\t   @@@@@@    @@@@@@   @@@@@@@@            @@@@@      @@@    @@@@@@@@@@@     @@@      @@@   @@@@    @@@@        \n";
+    cout <<"\t\t\t   @@@@@@@  @@@@@@@   @@@   @@@           @@@@@@     @@@   @@@@@@@@@@@@@    @@@      @@@    @@@@  @@@@         \n";
+    cout <<"\t\t\t   @@@  @@@@@@  @@@   @@@    @@@          @@@  @@@   @@@   @@@       @@@    @@@      @@@     @@@@@@@@          \n";
+    cout <<"\t\t\t   @@@   @@@    @@@   @@@@@@@@@           @@@   @@@  @@@   @@@       @@@    @@@      @@@      @@@@@            \n";
+    cout <<"\t\t\t   @@@          @@@   @@@@@@@             @@@    @@@ @@@   @@@@@@@@@@@@@     @@@    @@@        @@@             \n";
+    cout <<"\t\t\t   @@@          @@@   @@@   @@@    @@@    @@@     @@@@@@   @@@       @@@      @@@  @@@         @@@             \n";
+    cout <<"\t\t\t   @@@          @@@   @@@    @@@   @@@    @@@      @@@@@   @@@       @@@       @@@@@@          @@@             \n";
+
+    cout <<"\n\n\nDeveloped by : Nabaraj Dhungel a.k.a Mr.Navy\n`";
+    cout <<"E-mail : nabaraj.dhungeel@gmail.com\n";
+    cout <<"Github : https://github.com/nabarajdhungel01";
+    cout <<"\n\n\n\n\n";
+    cout <<"  OKAY \n";
+    cout <<"Thank You!!\n";
+    cout <<"\n\n\n\n\n\n\n\n\n";
+    getch();
+
+    bank creditss;
+    creditss.menu();
+
 }
