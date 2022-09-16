@@ -1,0 +1,6 @@
+A1 Electricity 1000 13/9/2022
+A1 elect 4000 13/9/2022
+A1 electricity 100 13/9/2022
+a1 test_electricty 100 15/9/2022
+a1 haha 123 15/9/2022
+a1 haha 100 15/9/2022

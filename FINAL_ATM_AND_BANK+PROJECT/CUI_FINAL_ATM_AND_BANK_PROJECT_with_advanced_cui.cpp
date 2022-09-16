@@ -42,12 +42,14 @@ int convert_string_to_int(string a);
 void introduction(); // INTRODUCITON OF THE DEVELOPER AND .......
 
 // C FUNCTIONS
-void login_screen();                     // function for login screen before accessing to the actual bank and atm management system
-void gotopositionxy(int x, int y);       // this will place the cursor.
-void cursor(int position);               // this will move the cursor the the positionxy
-void highlight(int position, int count); // this will highlight the thing
-void credits();                          // function to display credits.
-void cursor(int position);               // this will move the cursor the the positionxy
+void login_screen();                      // function for login screen before accessing to the actual bank and atm management system
+void gotopositionxy(int x, int y);        // this will place the cursor.
+void cursor(int position);                // this will move the cursor the the positionxy
+void highlight(int position, int count);  // this will highlight the thing
+void highlight2(int position, int count); // this will highlight the thing
+void credits();                           // function to display credits.
+void cursor(int position);                // this will move the cursor the the positionxy
+void cursor2(int position);               // this will move the cursor the the positionxy
 void window(int a, int b, int c, int d);
 
 COORD coord = {0, 0}; // this is global variable used for the position of cursor // it is included in <windows.h>  header
@@ -76,7 +78,6 @@ void bank::menu()
     }
 
     cursor(4); // 7
-    printf("final");
     getch();
 }
 
@@ -97,25 +98,36 @@ void bank::bank_management()
 
     cursor(12);
     getch();
+}
+
+void bank::atm_management()
+{
+
+    system("cls"); // will clear the screen to show the menu
+
+    window(25, 60, 20, 32);
+    const char *menu[] = {"\tBank Management ", "\tATM Management", "\tCredits", "\tExit"};
+    gotopositionxy(33, 18);
+    printf("CONTROL PANEL");
+    for (int i = 0; i <= 3; i++) // prints the four things
+    {
+        gotopositionxy(30, 22 + i);
+        printf("%s\n\n\n", menu[i]);
+    }
+
+    cursor2(4); // 7
+    getch();
 
     //     fflush(stdin);
 
-    // p: // goto loop
-    //     int choice;
+    // p:
     //     system("cls");
-    //     cout << "\n\n\t\t BANK Management System\n";
-    //     cout << "\n 1.  New User";
-    //     cout << "\n 2.  Already User";
-    //     cout << "\n 3.  Deposit Option";
-    //     cout << "\n 4.  Withdraw Option.";
-    //     cout << "\n 5.  Transfer Option.";
-    //     cout << "\n 6.  Payment Option.";
-    //     cout << "\n 7.  Search User Record.";
-    //     cout << "\n 8.  Edit User Record.";
-    //     cout << "\n 9.  Delete User Records.";
-    //     cout << "\n 10. Show All Records.";
-    //     cout << "\n 11. All Payment Rec.";
-    //     cout << "\n 12. Go Back";
+    //     int choice;
+    //     cout << "\n\n\t\t ATM Management System";
+    //     cout << "\n\n 1. User Login & Check Balance";
+    //     cout << "\n 2. Withrdraw Amount";
+    //     cout << "\n 3. Account Details";
+    //     cout << "\n 4. Go Back.";
     //     cout << "\n\n Enter your Choice  : ";
     //     cin >> choice;
     //     while (cin.fail())
@@ -126,85 +138,21 @@ void bank::bank_management()
     //     switch (choice)
     //     {
     //     case 1:
-    //         new_user();
+    //         user_balance();
     //         break;
     //     case 2:
-    //         already_user();
+    //         withdraw_atm();
     //         break;
     //     case 3:
-    //         deposit();
+    //         atm_check_details();
     //         break;
     //     case 4:
-    //         withdraw();
-    //         break;
-    //     case 5:
-    //         transfer();
-    //         break;
-    //     case 6:
-    //         payment();
-    //         break;
-    //     case 7:
-    //         search();
-    //         break;
-    //     case 8:
-    //         edit();
-    //         break;
-    //     case 9:
-    //         del();
-    //         break;
-    //     case 10:
-    //         show_all_records();
-    //         break;
-    //     case 11:
-    //         show_all_payments();
-    //         break;
-    //     case 12:
     //         menu();
     //     default:
     //         cout << "Invalid Choice !!!";
     //     }
     //     getch();
     //     goto p;
-    // }
-}
-
-void bank::atm_management()
-{
-    fflush(stdin);
-
-p:
-    system("cls");
-    int choice;
-    cout << "\n\n\t\t ATM Management System";
-    cout << "\n\n 1. User Login & Check Balance";
-    cout << "\n 2. Withrdraw Amount";
-    cout << "\n 3. Account Details";
-    cout << "\n 4. Go Back.";
-    cout << "\n\n Enter your Choice  : ";
-    cin >> choice;
-    while (cin.fail())
-    {
-        cin.clear();
-        cin.ignore();
-    } // if the user enters the character, this will prevent program from crashing.
-    switch (choice)
-    {
-    case 1:
-        user_balance();
-        break;
-    case 2:
-        withdraw_atm();
-        break;
-    case 3:
-        atm_check_details();
-        break;
-    case 4:
-        menu();
-    default:
-        cout << "Invalid Choice !!!";
-    }
-    getch();
-    goto p;
 }
 
 void bank::new_user()
@@ -2626,10 +2574,11 @@ void highlight(int position, int count)
             break;
         }
     }
+    // system("cls");
     if (position == 12)
     {
-        system("cls");
-        window(25, 60, 20, 35);
+        // system("cls");
+        // window(25, 60, 20, 35);
         gotopositionxy(33, 18);
         printf("BANK MANAGEMENT");
 
@@ -2709,4 +2658,86 @@ void highlight(int position, int count)
             printf("-  Go Back");
         }
     }
+}
+
+void cursor2(int position)
+{
+    bank obj1;
+    int count = 1;
+    char ch = '0';
+    gotopositionxy(30, 22);
+    while (1)
+    {
+        switch (ch)
+        {
+        case 80:
+            count++;
+            if (count == position + 1)
+                count = 1;
+            break;
+
+        case 72:
+            count--;
+            if (count == 0)
+                count = position;
+            break;
+        }
+        highlight(position, count);
+        ch = getch();
+        if (ch == '\r')
+        {
+            switch (position)
+            {
+            case 1:
+                obj1.user_balance();
+                break;
+            case 2:
+                obj1.withdraw_atm();
+                break;
+            case 3:
+                obj1.atm_check_details();
+                break;
+            case 4:
+                obj1.menu();
+            }
+        }
+    }
+}
+
+void highlight2(int position, int count)
+{
+    // THIS FUNCTOIN WILL HIghlight the selected item by cursor
+    if (position == 4)
+    {
+        // system("cls");
+        gotopositionxy(30, 22);
+        printf("   Bank Management");
+        gotopositionxy(30, 23);
+        printf("   ATM Management ");
+        gotopositionxy(30, 24);
+        printf("   Credits     ");
+        gotopositionxy(30, 25);
+        printf("   Exit     ");
+
+        switch (count)
+        {
+        case 1:
+            gotopositionxy(30, 22);
+            printf(" - Bank Management");
+            break;
+        case 2:
+            gotopositionxy(30, 23);
+            printf(" - ATM Management");
+            break;
+        case 3:
+            gotopositionxy(30, 24);
+            printf(" - Credits");
+            break;
+        case 4:
+            gotopositionxy(30, 25);
+            printf(" - Exit");
+            break;
+        }
+    }
+    // system("cls");
 }

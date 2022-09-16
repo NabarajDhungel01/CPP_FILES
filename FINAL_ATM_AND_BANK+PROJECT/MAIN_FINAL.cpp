@@ -56,10 +56,10 @@ COORD coord = {0, 0}; // this is global variable used for the position of cursor
 
 int main()
 {
-
+    // getch(); // to see the pre errors...
     bank obj1;
     // obj1.bank_management();
-    obj1.menu();
+    obj1.atm_management();
 }
 
 void bank::menu()
@@ -102,57 +102,74 @@ void bank::bank_management()
 
 void bank::atm_management()
 {
+    bank obj1;
 
-    system("cls"); // will clear the screen to show the menu
+    // system("cls"); // will clear the screen to show the menu
 
-    window(25, 60, 20, 32);
-    const char *menu[] = {"\tUser Login & Check Balance ", "\tWithdraw Amount  ", "\tAccount Details", "\tGo Back"};
+    // window(25, 60, 20, 32);
+    // const char *menu[] = {"\tUser Login & Check Balance ", "\tWithdraw Amount  ", "\tAccount Details", "\tGo Back"};
+    // gotopositionxy(33, 18);
+    // printf("ATM MANAGEMENT");
+    // for (int i = 0; i <= 3; i++) // prints the four things
+    // {
+    //     gotopositionxy(30, 22 + i);
+    //     printf("%s\n\n\n", menu[i]);
+    // }
+
+    // cursor2(4); // 7
+    // getch();
+
+        fflush(stdin);
+
+    p:
+        system("cls");
+        int choice;
+        // cout << "\n\n\t\t ATM Management System";
+        // cout << "\n\n 1. User Login & Check Balance";
+        // cout << "\n 2. Withrdraw Amount";
+        // cout << "\n 3. Account Details";
+        // cout << "\n 4. Go Back.";
+        // cout << "\n\n Enter your Choice  : ";
+
+
+    window(30, 65, 20, 32);
+    const char *menu[] = {"\t1. User Login & Check Balance ", "\t2. Withdraw Amount  ", "\t3. Account Details", "\t4. Go Back"};
     gotopositionxy(33, 18);
-    printf("CONTROL PANEL");
+    printf("ATM MANAGEMENT");
     for (int i = 0; i <= 3; i++) // prints the four things
     {
         gotopositionxy(30, 22 + i);
         printf("%s\n\n\n", menu[i]);
     }
+    gotopositionxy(31,28);
+        cout << " Enter your Choice  : ";
 
-    cursor2(4); // 7
-    getch();
 
-    //     fflush(stdin);
 
-    // p:
-    //     system("cls");
-    //     int choice;
-    //     cout << "\n\n\t\t ATM Management System";
-    //     cout << "\n\n 1. User Login & Check Balance";
-    //     cout << "\n 2. Withrdraw Amount";
-    //     cout << "\n 3. Account Details";
-    //     cout << "\n 4. Go Back.";
-    //     cout << "\n\n Enter your Choice  : ";
-    //     cin >> choice;
-    //     while (cin.fail())
-    //     {
-    //         cin.clear();
-    //         cin.ignore();
-    //     } // if the user enters the character, this will prevent program from crashing.
-    //     switch (choice)
-    //     {
-    //     case 1:
-    //         user_balance();
-    //         break;
-    //     case 2:
-    //         withdraw_atm();
-    //         break;
-    //     case 3:
-    //         atm_check_details();
-    //         break;
-    //     case 4:
-    //         menu();
-    //     default:
-    //         cout << "Invalid Choice !!!";
-    //     }
-    //     getch();
-    //     goto p;
+        cin >> choice;
+        while (cin.fail())
+        {
+            cin.clear();
+            cin.ignore();
+        } // if the user enters the character, this will prevent program from crashing.
+        switch (choice)
+        {
+        case 1:
+            user_balance();
+            break;
+        case 2:
+            withdraw_atm();
+            break;
+        case 3:
+            atm_check_details();
+            break;
+        case 4:
+            obj1.menu();
+        default:
+            cout << "Invalid Choice !!!";
+        }
+        getch();
+        goto p;
 }
 
 void bank::new_user()
@@ -434,6 +451,9 @@ starting_of_new_user:
         file.close();
         cout << "User Add Successful!";
     }
+    getch();
+    bank objj;
+    objj.bank_management();
 }
 
 void bank::search()
@@ -546,6 +566,9 @@ void bank::search()
     {
         cout << "\n\n User ID Can't Found...";
     }
+    getch();
+    bank objj;
+    objj.bank_management();
 }
 
 void bank::already_user() // if the Existing user asks for the id and password
@@ -651,7 +674,7 @@ void bank::already_user() // if the Existing user asks for the id and password
     {
         cout << "\n\n User ID Can't Found...";
     }
-
+    getch();
     bank objj;
     objj.bank_management();
 }
@@ -790,6 +813,7 @@ void bank::deposit()
             cout << "\n\n User ID Can't Found...";
         }
     }
+    getch();
     bank objj;
     objj.bank_management();
 }
@@ -934,6 +958,7 @@ void bank::withdraw()
             cout << "\n\n User ID Can't Found...";
         }
     }
+    getch();
     bank objj;
     objj.bank_management();
 }
@@ -1220,8 +1245,30 @@ create_new_billname:
         goto create_new_billname;
     }
     bill_name = convert_space_to_line(bill_name);
-    cout << "\n\n Bill Amount : ";
-    cin >> bill_amount;
+create_new_balance: ///////////////////////////////////////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    cout << "\n Bill Amount  :";
+    getline(cin, bill_amount);
+    if (is_comma_present_in_input_string(bill_amount))
+    {
+        goto create_new_balance;
+    }
+    if (is_space_present(bill_amount))
+    {
+        cout << "Invalid Input \t ||  Enter \" OPENING BALANCE\"   without spaces \n ";
+        goto create_new_balance;
+    }
+    if (!is_input_all_number(bill_amount))
+    {
+        cout << "Amount can't contain characters !! \n\t Enter amount again ... \n";
+        goto create_new_balance;
+    }
+
+    if (bill_amount.length() > 12)
+    {
+        cout << "Invalid Input \t ||  Enter  \"PHONE NO. \"  less than trillion ( 12 digits)  \n ";
+        goto create_new_balance;
+    }
+
     temp_file.open("temp_bank.csv", ios::app | ios::out);
     file >> all;
     while (!file.eof())
@@ -1331,6 +1378,7 @@ create_new_billname:
     {
         cout << "\n\n Insufficient Balance in " << name << "'s Account";
     }
+    getch();
     bank objj;
     objj.bank_management();
 }
@@ -1550,8 +1598,13 @@ void bank::edit()
             {
                 cout << "\n\n User ID Can't Found...";
             }
+            else if (found == 1)
+            {
+                cout << "\n\n  User Edit Successful";
+            }
         }
     }
+    getch();
     bank objj;
     objj.bank_management();
 }
@@ -1652,14 +1705,14 @@ void bank::del()
                         cout << "\n\t\t\t Delete User Details \n\n";
 
                         char check;
-                        cout << "Delete Record " << test_id << "named" << csv_name << "(Y/N) \t: ";
+                        cout << "Delete Record ~~~~~" << test_id << "~~~~~~   named~~~~~" << csv_name << "~~~~~   (Y/N) \t: ";
                         check = getche();
                         if (check == 'y' || check == 'Y')
                         {
                             // DO NOT WRITE
                             // NOT WRITING THE DETAILS OF THE ID TO BE DELETED........
                             // temp_file << csv_id << "," << name << "," << fname << "," << address << "," << pin << "," << pass << "," << phone << "," << csv_balance << ","  << "\n";
-                            cout << "\n\n User ID : \"\" " << test_id << " \"\"named \"\"" << csv_name << "\"\" deleted successfully!!";
+                            cout << "\n\n User ID : ****" << test_id << "****   named  ****" << csv_name << "****** deleted successfully!!";
                         }
                         else
                         {
@@ -1688,6 +1741,7 @@ void bank::del()
             }
         }
     }
+    getch();
     bank objj;
     objj.bank_management();
 }
@@ -1836,6 +1890,7 @@ void bank::show_all_payments()
         }
         cout << " \n\n Total " << found << ". Records shown!!";
     }
+    getch();
     bank objj;
     objj.bank_management();
 }
@@ -1968,6 +2023,9 @@ int bank::user_balance()
             return 1;
         }
     }
+    getch();
+    bank objj;
+    objj.atm_management();
 }
 
 void bank::atm_check_details()
@@ -1980,6 +2038,8 @@ void bank::atm_check_details()
     {
         search(); // to search
     }
+    bank objj;
+    objj.atm_management();
 }
 
 void bank::withdraw_atm()
@@ -1990,6 +2050,8 @@ void bank::withdraw_atm()
     {
         withdraw(); // to search
     }
+    bank objj;
+    objj.atm_management();
 }
 
 string convert_space_to_line(string input_string)
@@ -2683,10 +2745,10 @@ void highlight(int position, int count)
     }
 }
 
-void cursor2(int position)
+void cursor2(int pusition)
 {
     bank obj1;
-    int count = 1;
+    int CUNT = 1;
     char ch = '0';
     gotopositionxy(30, 22);
     while (1)
@@ -2694,55 +2756,67 @@ void cursor2(int position)
         switch (ch)
         {
         case 80:
-            count++;
-            if (count == position + 1)
-                count = 1;
+            CUNT++;
+            if (CUNT == pusition + 1)
+                CUNT = 1;
             break;
 
         case 72:
-            count--;
-            if (count == 0)
-                count = position;
+            CUNT--;
+            if (CUNT == 0)
+                CUNT = pusition;
             break;
         }
-        highlight2(position, count);
+        highlight2(pusition, CUNT);
         ch = getch();
         if (ch == '\r')
         {
-            switch (position)
+            if (pusition == 4)
             {
-            case 1:
-                obj1.user_balance();
-                break;
-            case 2:
-                obj1.withdraw_atm();
-                break;
-            case 3:
-                obj1.atm_check_details();
-                break;
-            case 4:
-                obj1.menu();
+                cout << "                            pusition is : " << pusition;
+                switch (pusition)
+                {
+                case 1:
+                    cout << "HAHA1";
+                    getch();
+                    obj1.user_balance();
+                    break;
+                case 2:
+                    cout << "HAHA2";
+                    getch();
+                    obj1.withdraw_atm();
+                    break;
+                case 3:
+                    cout << "HAHA3";
+                    getch();
+                    obj1.atm_check_details();
+                    break;
+                case 4:
+                    cout << "HAHA4";
+                    getch();
+                    obj1.menu();
+                }
             }
         }
     }
 }
 
-void highlight2(int position, int count)
+void highlight2(int pusition, int CUNTT)
 {
     // THIS FUNCTOIN WILL HIghlight the selected item by cursor
-    if (position == 4)
+    if (pusition == 4)
     {
         // system("cls");
         gotopositionxy(30, 22);
         printf("   User Login & Check Balance ");
         gotopositionxy(30, 23);
-        printf("   tWithdraw Amount ");
+        printf("   Withdraw Amount ");
         gotopositionxy(30, 24);
         printf("   Account Details     ");
         gotopositionxy(30, 25);
         printf("   Go Back    ");
 
-        switch (count)
+        switch (CUNTT)
         {
         case 1:
             gotopositionxy(30, 22);
@@ -2751,7 +2825,7 @@ void highlight2(int position, int count)
             break;
         case 2:
             gotopositionxy(30, 23);
-            printf("-  tWithdraw Amount ");
+            printf("-  Withdraw Amount ");
             break;
         case 3:
             gotopositionxy(30, 24);
