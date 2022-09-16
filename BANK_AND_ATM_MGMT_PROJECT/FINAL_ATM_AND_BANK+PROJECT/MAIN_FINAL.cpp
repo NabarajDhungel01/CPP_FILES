@@ -56,10 +56,12 @@ COORD coord = {0, 0}; // this is global variable used for the position of cursor
 
 int main()
 {
+    login_screen();
     // getch(); // to see the pre errors...
     bank obj1;
     // obj1.bank_management();
-    obj1.atm_management();
+    introduction();
+    obj1.menu();
 }
 
 void bank::menu()
@@ -119,18 +121,17 @@ void bank::atm_management()
     // cursor2(4); // 7
     // getch();
 
-        fflush(stdin);
+    fflush(stdin);
 
-    p:
-        system("cls");
-        int choice;
-        // cout << "\n\n\t\t ATM Management System";
-        // cout << "\n\n 1. User Login & Check Balance";
-        // cout << "\n 2. Withrdraw Amount";
-        // cout << "\n 3. Account Details";
-        // cout << "\n 4. Go Back.";
-        // cout << "\n\n Enter your Choice  : ";
-
+p:
+    system("cls");
+    int choice;
+    // cout << "\n\n\t\t ATM Management System";
+    // cout << "\n\n 1. User Login & Check Balance";
+    // cout << "\n 2. Withrdraw Amount";
+    // cout << "\n 3. Account Details";
+    // cout << "\n 4. Go Back.";
+    // cout << "\n\n Enter your Choice  : ";
 
     window(30, 65, 20, 32);
     const char *menu[] = {"\t1. User Login & Check Balance ", "\t2. Withdraw Amount  ", "\t3. Account Details", "\t4. Go Back"};
@@ -141,35 +142,33 @@ void bank::atm_management()
         gotopositionxy(30, 22 + i);
         printf("%s\n\n\n", menu[i]);
     }
-    gotopositionxy(31,28);
-        cout << " Enter your Choice  : ";
+    gotopositionxy(31, 28);
+    cout << " Enter your Choice  : ";
 
-
-
-        cin >> choice;
-        while (cin.fail())
-        {
-            cin.clear();
-            cin.ignore();
-        } // if the user enters the character, this will prevent program from crashing.
-        switch (choice)
-        {
-        case 1:
-            user_balance();
-            break;
-        case 2:
-            withdraw_atm();
-            break;
-        case 3:
-            atm_check_details();
-            break;
-        case 4:
-            obj1.menu();
-        default:
-            cout << "Invalid Choice !!!";
-        }
-        getch();
-        goto p;
+    cin >> choice;
+    while (cin.fail())
+    {
+        cin.clear();
+        cin.ignore();
+    } // if the user enters the character, this will prevent program from crashing.
+    switch (choice)
+    {
+    case 1:
+        user_balance();
+        break;
+    case 2:
+        withdraw_atm();
+        break;
+    case 3:
+        atm_check_details();
+        break;
+    case 4:
+        obj1.menu();
+    default:
+        cout << "Invalid Choice !!!";
+    }
+    getch();
+    goto p;
 }
 
 void bank::new_user()
@@ -2266,6 +2265,7 @@ int convert_string_to_int(string a)
 
 void login_screen() // Making Login Function
 {
+    system("cls");
     int i = 0;
     int a = 0;         // we are declaring this variable so that we can check if the login details is incorrect more than 2 times, it will exit
     char c = ' ';      // for displaying as asterik
@@ -2300,11 +2300,11 @@ void login_screen() // Making Login Function
         {
             system("cls");
 
-            cout << "!!! LOGIN IS SUCCESSFUl\n\n";
+            cout << "!!! LOGIN IS SUCCESSFULL \n\n";
 
             cout << "              =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n";
             cout << "              ==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==";
-            cout << "\n              === WELCOME TO NAVY'S BANK AND ATM MANAGEMENT SYSTEM =-=\n";
+            cout << "\n              = WELCOME TO NAVY'S BANK AND ATM MANAGEMENT SYSTEM -=\n";
             cout << "              ===-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n";
             cout << "              =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
             cout << "\t\t\t\n\nPress any key to continue...";
@@ -2335,6 +2335,7 @@ void login_screen() // Making Login Function
 
 void introduction()
 { // 1st page
+    system("cls");
     cout << "\n\n\n\n\n\t";
     for (int i = 0; i < 60; i++)
     {
@@ -2399,9 +2400,12 @@ void introduction()
     {
         cout << "*";
     }
-    cout << "\n\n\t\t\t        Credits to:";
+    cout << "\n\n\t\t\t        Thanks to :";
     cout << "\n\n\t\t\t 1. CodeWithHarry";
-    cout << "\n\n\t\t\t 2. Khizar Mehar Technical \n\n\t\t\t";
+    cout << "\n\n\t\t\t 2. Khizar Mehar  ";
+    cout << "\n\n\t\t\t 3. w3schools ";
+    cout << "\n\n\t\t\t 4. programmiz  ";
+    cout << "\n\n\t\t\t 4. learn-cpp.org\n\t\t\t";
     for (int i = 0; i < 30; i++)
     {
         cout << "*";
@@ -2411,6 +2415,7 @@ void introduction()
     {
         cout << "*";
     }
+    getch();
 }
 
 void window(int a, int b, int c, int d)
@@ -2527,37 +2532,40 @@ void cursor(int position)
                 // YOU CAN SET YOUR FUNCTION WHERE TO JUMP HERE
                 if (count == 1)
                 {
-                    // LOGIN SYSTEM
-                    // LOGIN SYSTEM
-                    // LOGIN SYSTEM
-                    // LOGIN SYSTEM
-                    // system("cls");
-                    //         // cout << "\n\n \t\t Login Account";
-                    //         // cout << "\n\n E-mail  :";
-                    //         // email;
-                    //         // cout << "\n Pin (5 digit)    :";
-                    //         // for (int i = 1; i <= 5; i++)
-                    //         // {
-                    //         // ch = getch();
-                    //         // pin += ch;
-                    //         // cout << "*";
-                    //         // }
-                    //         // cout << "\n Password (5 digit)    : ";
-                    //         // for (int i = 1; i <= 5; i++)
-                    //         // {
-                    //         // ch = getch();
-                    //         // pass += ch;
-                    //         // cout << "*";
-                    //         // }
-                    //         // if (email == "khizar@gmail.com" && pin == "13366" && pass == "14366")
-                    //         // {
-                    //         // bank_management();
-                    //         // }
-                    //         // else
-                    //         // {
-                    //         // cout << "\n\n Incorrect Credentials !!!";
-                    //         // }
-                    obj1.bank_management();
+                    string email;
+                    string pin;
+                    string pass;
+                    // LOGIN SYSTEM  FOR BANK MANAGEMENT OPTION
+                    // LOGIN SYSTEM  FOR BANK MANAGEMENT OPTION
+                    // LOGIN SYSTEM  FOR BANK MANAGEMENT OPTION
+                    // LOGIN SYSTEM  FOR BANK MANAGEMENT OPTION
+                    system("cls");
+                    cout << "\n\n \t\t Login Account";
+                    cout << "\n\n E-mail  :";
+                    cin >> email;
+                    cout << "\n Pin (5 digit)    :";
+                    for (int i = 1; i <= 5; i++)
+                    {
+                        ch = getch();
+                        pin += ch;
+                        cout << "*";
+                    }
+                    cout << "\n Password (5 digit)    : ";
+                    for (int i = 1; i <= 5; i++)
+                    {
+                        ch = getch();
+                        pass += ch;
+                        cout << "*";
+                    }
+                    if (email == "mrnavy" && pin == "12345" && pass == "54321")
+                    {
+                        obj1.bank_management();
+                    }
+                    else
+                    {
+                        cout << "\n\n Incorrect Credentials !!!";
+                    }
+                    obj1.menu();
                 }
                 // calculate_bill();                  // printf("\t\t Calculate Bill HEHE");
                 else if (count == 2)
